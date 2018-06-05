@@ -6,14 +6,22 @@
   "dependencies": {
     "cookie": "^0.3.1",
     "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "knex": "^0.14.6",
+    "mysql": "^2.15.0",
     "nonce": "^1.0.4",
+    "objection": "^1.1.10",
     "request": "^2.87.0",
     "request-promise": "^4.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "node-sass": "^4.9.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "sass:compile": "node-sass --include-path sass styles/input.scss styles/output.css"
   },
   "author": "",
   "license": "ISC"
