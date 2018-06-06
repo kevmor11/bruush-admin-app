@@ -25,9 +25,9 @@ Model.knex(knex);
 const apiKey = process.env.SHOPIFY_API_KEY,
       apiSecret = process.env.SHOPIFY_API_SECRET,
       scopes = 'read_products',
-      forwardingAddress = "https://ff7f40e8.ngrok.io"; // Replace this with your HTTPS Forwarding address
+      forwardingAddress = "https://4958177a.ngrok.io"; // Replace this with your HTTPS Forwarding address
 
-sendMail('kevin@bruush.com','Hello','Testing');
+// sendMail('kevin@bruush.com','Hello','Testing');
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -117,9 +117,22 @@ app.get('/shopify/callback', (req, res) => {
   }
 });
 
+// app.get('/products', (req, res) => {
+//   const shop = req.query.shop;
+//   if (shop) {
+//     const state = nonce();
+//     const installUrl = 'https://' + shop + 'admin/products.json';
+
+//     res.cookie('state', state);
+//     res.redirect(installUrl);
+//   } else {
+//     return res.status(400).send('Missing shop parameter. Please add ?shop=your-development-shop.myshopify.com to your request');
+//   }
+// });
+
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!');
 });
 
 // API ENDPOINT
-// https://ff7f40e8.ngrok.io/shopify?shop=bruushdev.myshopify.com
+// https://4958177a.ngrok.io/shopify?shop=bruushdev.myshopify.com
