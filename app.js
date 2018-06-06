@@ -7,23 +7,27 @@ const dotenv = require('dotenv').config(),
       querystring = require('querystring'),
       request = require('request-promise'),
       { Model } = require('objection'),
-      Knex = require('knex');
+      Knex = require('knex'),
+      connection = require('./db/connection'),
+      sendMail = require('./util/mailer');
 
 
 const knex = Knex({
-  client: 'sqlite3',
+  client: 'mysql',
   useNullAsDefault: true,
   connection: {
-    filename: 'example.db'
+    filename: './db/connection'
   }
 });
+
+Model.knex(knex);
 
 const apiKey = process.env.SHOPIFY_API_KEY,
       apiSecret = process.env.SHOPIFY_API_SECRET,
       scopes = 'read_products',
       forwardingAddress = "https://ff7f40e8.ngrok.io"; // Replace this with your HTTPS Forwarding address
 
-const connection = require('db');
+sendMail('kevin@bruush.com','Hello','Testing');
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
