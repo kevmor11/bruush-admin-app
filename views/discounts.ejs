@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/_head %>
+  </head>
+  <body>
+    <% include ../partials/_header %>
+    <section class="product mt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 offset-5 mt-5">
+            <h1>All Discounts</h1>
+            <ol>
+              <% discounts.forEach((discount) => { %>
+                <li>
+                  <ul>
+                    <li>ID: <%= discount.id %></li>
+                    <li>Code: <%= discount.code %></li>
+                    <li>Usage Count: <%= discount.usage_count %></li>
+                    <li>Created At: <%= discount.created_at.substring(0, 10) %></li>
+                  </ul>
+                </li>
+              <% }) %>
+            </ol>
+            <div class="mt-5 text-center w-25">
+              <form action="/discounts/create-discount" method="post">
+                <label for="id">New Code Name</label><br>
+                <input type="text" name="code"><br>
+                <button class="btn btn-primary mt-2" type="submit">Create Discount Code</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

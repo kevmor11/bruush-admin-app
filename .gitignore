@@ -18,4 +18,5 @@ Thumbs.db
 npm-debug.log
 compilation-stats.json
 .gitignore.swp
-/util/aws-config.json
+aws-config.json
+.eslintrc.json

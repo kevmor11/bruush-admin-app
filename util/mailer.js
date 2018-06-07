@@ -1,9 +1,8 @@
 const nodemailer = require('nodemailer'),
       aws = require('aws-sdk');
 
-
 // configure AWS SDK
-aws.config.loadFromPath('util/aws-config.json');
+aws.config.loadFromPath('aws-config.json');
 
 // create Nodemailer SES transporter
 let transporter = nodemailer.createTransport({
@@ -25,16 +24,16 @@ module.exports = function (to, subject, message) {
       //         Value: 'tag value'
       //     }]
       // }
-    }, (err, info) => {
-      if (err) {
-        console.log("Error: ", err);
-        console.log(info.envelope);
-        console.log(info.messageId);
-      } else {
-        console.log("Nodemailer sent an email successfully!");
-      }
-    });
-  }
+  }, (err, info) => {
+    if (err) {
+      console.log("Error: ", err);
+      console.log(info.envelope);
+      console.log(info.messageId);
+    } else {
+      console.log("Nodemailer sent an email successfully!");
+    }
+  });
+};
 
 // working code using sendmail transport system
 // const transporter = nodemailer.createTransport({

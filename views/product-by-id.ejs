@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/_head %>
+  </head>
+  <body>
+    <% include ../partials/_header %>
+    <section class="product mt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 offset-5 mt-5">
+            <% if (product) { %>
+              <h2>Product Found</h2>
+              <ul>
+                <li><strong>ID:</strong> <%= product.id %></li>
+                <li><strong>Title:</strong> <%= product.title %></li>
+                <li><strong>Vendor:</strong> <%= product.vendor %></li>
+                <li><strong>Price:</strong> <%= product.variants[0].price %></li>
+                <li><strong>SKU:</strong> <%= product.variants[0].sku %></li>
+              </ul>
+            <% } else { %>
+              <h2>Product Not Found</h2>
+            <% } %>
+            <a class="btn btn-primary" href="/products">Search for Another Product</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
