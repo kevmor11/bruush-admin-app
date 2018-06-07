@@ -27,6 +27,15 @@ const express = require('express'),
     if(err) return res.end(err.message);
     res.redirect('/discounts');
   });
+})
+
+.post('/delete-discount', (req, res) => {
+  const id = req.body.id;
+
+  request.delete(`https://${process.env.SHOPIFY_API_KEY_2}:${process.env.SHOPIFY_API_PASSWORD}@bruushdev.myshopify.com/admin/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes/${id}.json`, (err) => {
+    if(err) return res.end(err.message);
+    res.redirect('/discounts');
+  });
 });
 
 module.exports = router;
