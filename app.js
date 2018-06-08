@@ -38,8 +38,6 @@ const knex = Knex({
 
 Model.knex(knex);
 
-// sendMail('kevin@bruush.com', 'testing', 'Hello, World');
-
 app.get('/', (req, res) => {
   res.redirect('/discounts');
 });
