@@ -22,9 +22,10 @@ https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
 ## .env Contents
 
  - SHOPIFY_API_KEY
- - SHOPIFY_API_SECRET
- - DATABASE_HOST
+ - SHOPIFY_API_PASSWORD
+ - ATABASE_HOST
  - DATABASE_USER
  - DATABASE_PASSWORD
  - DATABASE_NAME
  - DATABASE_URL
+ - SHOPIFY_DISCOUNT_ID
