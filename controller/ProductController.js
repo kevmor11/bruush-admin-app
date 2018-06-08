@@ -1,4 +1,5 @@
 const request = require('request'),
+      shopifyUrl = require('../constants/ShopifyConstants').baseUrl,
       router = require('express').Router()
 
 .get('/', (req, res) => {
@@ -7,7 +8,7 @@ const request = require('request'),
 
 .post('/id', (req, res) => {
   const id = req.body.id;
-  request(`https://${process.env.SHOPIFY_API_KEY_2}:${process.env.SHOPIFY_API_PASSWORD}@bruushdev.myshopify.com/admin/products/${id}.json`, (err, response, body) => {
+  request(`${shopifyUrl}/products/${id}.json`, (err, response, body) => {
     if(err) return res.end(err.message);
     const product = JSON.parse(body).product;
     res.render('product-by-id', { product });
