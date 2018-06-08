@@ -2,12 +2,12 @@ const discount_controller = require('../controller/DiscountController'),
       router = require('express').Router()
 
 // Get all discount codes
-.get('/', discount_controller.discount_list)
+.get('/', discount_controller.listDiscount)
 
 // Create a discount code
-.post('/create-discount', discount_controller.discount_create_post)
+.post('/create-discount', discount_controller.createDiscount)
 
 // Delete a discount code
-.post('/delete-discount', discount_controller.discount_delete_post);
+.post('/delete-discount', discount_controller.deleteDiscount);
 
 module.exports = router;

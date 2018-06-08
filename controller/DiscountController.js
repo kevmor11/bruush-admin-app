@@ -3,20 +3,19 @@ const Discount = require('../model/discount'),
       request = require('request');
 
 // Display list of all Discounts.
-exports.discount_list = (req, res) => {
-  request(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`, (err, response, body) => {
-    if(err) {
-      return res.end(err.message);
-    }
-    const discounts = JSON.parse(body).discount_codes;
-    res.render('discounts', { discounts });
-  }).on('error', (e) => {
-    console.log(e);
-  }).end();
+exports.listDiscount = (req, res) => {
+  try {
+    request(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`, (err, response, body) => {
+      const discounts = JSON.parse(body).discount_codes;
+      res.render('discounts', { discounts });
+    });
+  } catch (error) {
+    return res.end(error.message);
+  }
 };
 
 // Handle discount code create on POST.
-exports.discount_create_post = (req, res) => {
+exports.createDiscount = (req, res) => {
   const code = req.body.code;
   const formData = {
     discount_code: {
@@ -24,25 +23,27 @@ exports.discount_create_post = (req, res) => {
     }
   };
 
-  request.post({
-    url: `${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`,
-    form: formData
-  }, (err) => {
-    if(err) {
-      return res.end(err.message);
-    }
-    res.redirect('/discounts');
-  });
+  try {
+    request.post({
+      url: `${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`,
+      form: formData
+    }, () => {
+      res.redirect('/discounts');
+    });
+  } catch (error) {
+    return res.end(error.message);
+  }
 };
 
 // Handle discount delete on POST.
-exports.discount_delete_post = (req, res) => {
+exports.deleteDiscount = (req, res) => {
   const id = req.body.id;
 
-  request.delete(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes/${id}.json`, (err) => {
-    if(err) {
-      return res.end(err.message);
-    }
-    res.redirect('/discounts');
-  });
+  try {
+    request.delete(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes/${id}.json`, () => {
+      res.redirect('/discounts');
+    });
+  } catch (error) {
+    return res.end(error.message);
+  }
 };
