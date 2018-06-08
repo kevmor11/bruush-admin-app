@@ -1,12 +1,12 @@
 const request = require('request'),
       shopifyUrl = require('../constants/ShopifyConstants').baseUrl,
-      router = require('express').Router()
+      router = require('express').Router();
 
-.get('/', (req, res) => {
+router.get('/', (req, res) => {
   res.render('products');
-})
+});
 
-.post('/id', (req, res) => {
+router.post('/id', (req, res) => {
   const id = req.body.id;
   request(`${shopifyUrl}/products/${id}.json`, (err, response, body) => {
     if(err) {

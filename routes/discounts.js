@@ -1,47 +1,15 @@
 const request = require('request'),
-      shopifyURL = require('../constants/ShopifyConstants').baseUrl,
       router = require('express').Router()
 
-.get('/', (req, res) => {
-  request(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`, (err, response, body) => {
-    if(err) {
-      return res.end(err.message);
-    }
-    const discounts = JSON.parse(body).discount_codes;
-    res.render('discounts', { discounts });
-  }).on('error', (e) => {
-    console.log(e);
-  }).end();
-})
+var discount_controller = require('../controller/DiscountController');
 
-.post('/create-discount', (req, res) => {
-  const code = req.body.code;
-  const formData = {
-    discount_code: {
-      code
-    }
-  };
+// Get all discount codes
+router.get('/', discount_controller.discount_list);
 
-  request.post({
-    url: `${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`,
-    form: formData
-  }, (err) => {
-    if(err) {
-      return res.end(err.message);
-    }
-    res.redirect('/discounts');
-  });
-})
+// Create a discount code
+router.post('/create-discount', discount_controller.discount_create_post);
 
-.post('/delete-discount', (req, res) => {
-  const id = req.body.id;
-
-  request.delete(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes/${id}.json`, (err) => {
-    if(err) {
-      return res.end(err.message);
-    }
-    res.redirect('/discounts');
-  });
-});
+// Delete a discount code
+router.post('/delete-discount', discount_controller.discount_delete_post);
 
 module.exports = router;

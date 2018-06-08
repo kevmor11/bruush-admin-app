@@ -1,41 +1,73 @@
-const Discount = require('../model/discount');
+const Discount = require('../model/discount'),
+      shopifyURL = require('../constants/ShopifyConstants').baseUrl,
+      request = require('request');
 
-// Display list of all Authors.
+// Display list of all Discounts.
 exports.discount_list = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount list');
+  request(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`, (err, response, body) => {
+    if(err) {
+      return res.end(err.message);
+    }
+    const discounts = JSON.parse(body).discount_codes;
+    res.render('discounts', { discounts });
+  }).on('error', (e) => {
+    console.log(e);
+  }).end();
 };
 
-// Display detail page for a specific product.
+// Display detail page for a specific discount.
 exports.discount_detail = (req, res) => {
   res.send('NOT IMPLEMENTED: Discount detail: ' + req.params.id);
 };
 
-// Display product create form on GET.
+// Display discount create form on GET.
 exports.discount_create_get = (req, res) => {
   res.send('NOT IMPLEMENTED: Discount create GET');
 };
 
-// Handle product create on POST.
+// Handle discount create on POST.
 exports.discount_create_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount create POST');
+  const code = req.body.code;
+  const formData = {
+    discount_code: {
+      code
+    }
+  };
+
+  request.post({
+    url: `${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`,
+    form: formData
+  }, (err) => {
+    if(err) {
+      return res.end(err.message);
+    }
+    res.redirect('/discounts');
+  });
 };
 
-// Display product delete form on GET.
+// Display discount delete form on GET.
 exports.discount_delete_get = (req, res) => {
   res.send('NOT IMPLEMENTED: Discount delete GET');
 };
 
-// Handle product delete on POST.
+// Handle discount delete on POST.
 exports.discount_delete_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount delete POST');
+  const id = req.body.id;
+
+  request.delete(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes/${id}.json`, (err) => {
+    if(err) {
+      return res.end(err.message);
+    }
+    res.redirect('/discounts');
+  });
 };
 
-// Display product update form on GET.
+// Display discount update form on GET.
 exports.discount_update_get = (req, res) => {
   res.send('NOT IMPLEMENTED: Discount update GET');
 };
 
-// Handle product update on POST.
+// Handle discount update on POST.
 exports.discount_update_post = (req, res) => {
   res.send('NOT IMPLEMENTED: Discount update POST');
 };

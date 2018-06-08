@@ -19,9 +19,9 @@ app.set('views', path.join(__dirname, 'views'))
    .use(compression())
    .use(bodyParser.json())
    .use(bodyParser.urlencoded({ extended: false }))
-   .use(express.static(path.join(__dirname, 'public')));
+   .use(express.static(path.join(__dirname, './public')));
 
-// Controllers
+// Routes
 const products = require('./routes/products'),
       discounts = require('./routes/discounts');
 
