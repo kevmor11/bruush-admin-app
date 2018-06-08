@@ -3,7 +3,7 @@ const Discount = require('../model/discount'),
       request = require('request');
 
 // Display list of all Discounts.
-exports.listDiscount = (req, res) => {
+exports.listDiscounts = (req, res) => {
   try {
     request(`${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`, (err, response, body) => {
       const discounts = JSON.parse(body).discount_codes;
