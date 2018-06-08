@@ -19,3 +19,5 @@ npm-debug.log
 compilation-stats.json
 .gitignore.swp
 aws-config.json
+server.crt
+server.key
