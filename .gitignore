@@ -19,4 +19,3 @@ npm-debug.log
 compilation-stats.json
 .gitignore.swp
 aws-config.json
-.eslintrc.json

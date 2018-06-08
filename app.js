@@ -22,8 +22,8 @@ app.set('views', path.join(__dirname, 'views'))
    .use(express.static(path.join(__dirname, 'public')));
 
 // Controllers
-const products = require('./controller/ProductController'),
-      discounts = require('./controller/DiscountController');
+const products = require('./routes/products'),
+      discounts = require('./routes/discounts');
 
 app.use('/products', products)
    .use('/discounts', discounts);
