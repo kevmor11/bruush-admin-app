@@ -1,6 +1,5 @@
-const express = require('express'),
-      request = require('request'),
-      router = express.Router()
+const request = require('request'),
+      router = require('express').Router()
 
 .get('/', (req, res) => {
   request(`https://${process.env.SHOPIFY_API_KEY_2}:${process.env.SHOPIFY_API_PASSWORD}@bruushdev.myshopify.com/admin/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`, (err, response, body) => {

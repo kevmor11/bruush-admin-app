@@ -1,6 +1,5 @@
-const express = require('express'),
-      request = require('request'),
-      router = express.Router()
+const request = require('request'),
+      router = require('express').Router()
 
 .get('/', (req, res) => {
   res.render('products');

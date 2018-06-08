@@ -2,6 +2,14 @@
 
 `aws-config.json` file must contain accessKeyId, secretAccessKey, and AWS region and be stored in the root directory.
 
+### aws-config.json example
+
+{
+  "accessKeyId": "ABCDE",
+  "secretAccessKey": "12345",
+  "region": "us-west-2"
+}
+
 Credentials can be created here:
 
 https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
