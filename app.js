@@ -14,12 +14,12 @@ const dotenv = require('dotenv').config(),
       connection = require('./db/connection'),
       sendMail = require('./util/MailUtil');
 
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, 'view'))
    .set('view engine', 'ejs')
    .use(compression())
    .use(bodyParser.json())
    .use(bodyParser.urlencoded({ extended: false }))
-   .use(express.static(path.join(__dirname, './public')));
+   .use(express.static(path.join(__dirname, '../public')));
 
 // Routes
 const products = require('./routes/products'),
