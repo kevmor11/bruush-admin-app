@@ -1,3 +1,3 @@
 module.exports = {
-  sendFromMail: 'kevin@bruush.com'
+  sendFromMail: process.env.SEND_FROM_MAIL
 };
