@@ -13,7 +13,7 @@ app.set('views', path.join(__dirname, 'view'))
    .use(compression())
    .use(bodyParser.json())
    .use(bodyParser.urlencoded({ extended: false }))
-   .use(express.static(path.join(__dirname, '../public')));
+   .use(express.static(path.join(__dirname, './public')));
 
 // Routes
 const products = require('./routes/products'),
