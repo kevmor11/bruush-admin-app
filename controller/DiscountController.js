@@ -4,7 +4,9 @@ const request = require('request'),
 
 .get('/', (req, res) => {
   request(`${shopifyUrl}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`, (err, response, body) => {
-    if(err) return res.end(err.message);
+    if(err) {
+      return res.end(err.message);
+    }
     const discounts = JSON.parse(body).discount_codes;
     res.render('discounts', { discounts });
   }).on('error', (e) => {
@@ -24,7 +26,9 @@ const request = require('request'),
     url: `${shopifyUrl}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`,
     form: formData
   }, (err) => {
-    if(err) return res.end(err.message);
+    if(err) {
+      return res.end(err.message);
+    }
     res.redirect('/discounts');
   });
 })
@@ -33,7 +37,9 @@ const request = require('request'),
   const id = req.body.id;
 
   request.delete(`${shopifyUrl}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes/${id}.json`, (err) => {
-    if(err) return res.end(err.message);
+    if(err) {
+      return res.end(err.message);
+    }
     res.redirect('/discounts');
   });
 });

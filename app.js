@@ -12,7 +12,7 @@ const dotenv = require('dotenv').config(),
       path = require('path'),
       bodyParser = require('body-parser'),
       connection = require('./db/connection'),
-      sendMail = require('./util/mailer');
+      sendMail = require('./util/MailUtil');
 
 app.set('views', path.join(__dirname, 'views'))
    .set('view engine', 'ejs')
@@ -37,6 +37,8 @@ const knex = Knex({
 });
 
 Model.knex(knex);
+
+// sendMail('kevin@bruush.com', 'testing', 'Hello, World');
 
 app.get('/', (req, res) => {
   res.redirect('/discounts');

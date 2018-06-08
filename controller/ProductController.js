@@ -9,7 +9,9 @@ const request = require('request'),
 .post('/id', (req, res) => {
   const id = req.body.id;
   request(`${shopifyUrl}/products/${id}.json`, (err, response, body) => {
-    if(err) return res.end(err.message);
+    if(err) {
+      return res.end(err.message);
+    }
     const product = JSON.parse(body).product;
     res.render('product-by-id', { product });
   }).on('error', (e) => {
