@@ -12,12 +12,13 @@
             <h1>All Discounts</h1>
             <ol>
               <% discounts.forEach((discount) => { %>
+              <br>
                 <li>
                   <ul>
-                    <li>ID: <%= discount.id %></li>
-                    <li>Code: <%= discount.code %></li>
-                    <li>Usage Count: <%= discount.usage_count %></li>
-                    <li>Created At: <%= discount.created_at.substring(0, 10) %></li>
+                    <li><strong>ID:</strong> <%= discount.id %></li>
+                    <li><strong>Code:</strong> <%= discount.code %></li>
+                    <li><strong>Usage Count:</strong> <%= discount.usage_count %></li>
+                    <li><strong>Created At:</strong> <%= discount.created_at.substring(0, 10) %></li>
                   </ul>
                 </li>
               <% }) %>
@@ -32,7 +33,7 @@
               <form action="/discounts/delete-discount" method="post">
                 <label for="id">Code ID</label><br>
                 <input type="text" name="id"><br>
-                <button class="btn btn-danger mt-2" type="submit">Delete Code By ID</button>
+                <button class="btn btn-danger mt-2 mb-4" type="submit">Delete Code By ID</button>
               </form>
             </div>
           </div>
