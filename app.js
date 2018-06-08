@@ -1,12 +1,5 @@
-const dotenv = require('dotenv').config(),
-      express = require('express'),
+const express = require('express'),
       app = express(),
-      // TODO remove unused packages below
-      crypto = require('crypto'),
-      cookie = require('cookie'),
-      nonce = require('nonce')(),
-      querystring = require('querystring'),
-      request = require('request-promise'),
       { Model } = require('objection'),
       Knex = require('knex'),
       compression = require('compression'),
