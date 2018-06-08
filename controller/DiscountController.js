@@ -15,17 +15,7 @@ exports.discount_list = (req, res) => {
   }).end();
 };
 
-// Display detail page for a specific discount.
-exports.discount_detail = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount detail: ' + req.params.id);
-};
-
-// Display discount create form on GET.
-exports.discount_create_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount create GET');
-};
-
-// Handle discount create on POST.
+// Handle discount code create on POST.
 exports.discount_create_post = (req, res) => {
   const code = req.body.code;
   const formData = {
@@ -45,11 +35,6 @@ exports.discount_create_post = (req, res) => {
   });
 };
 
-// Display discount delete form on GET.
-exports.discount_delete_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount delete GET');
-};
-
 // Handle discount delete on POST.
 exports.discount_delete_post = (req, res) => {
   const id = req.body.id;
@@ -60,14 +45,4 @@ exports.discount_delete_post = (req, res) => {
     }
     res.redirect('/discounts');
   });
-};
-
-// Display discount update form on GET.
-exports.discount_update_get = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount update GET');
-};
-
-// Handle discount update on POST.
-exports.discount_update_post = (req, res) => {
-  res.send('NOT IMPLEMENTED: Discount update POST');
 };
