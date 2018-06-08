@@ -1,6 +1,7 @@
 const dotenv = require('dotenv').config(),
       express = require('express'),
       app = express(),
+      // TODO remove unused packages below
       crypto = require('crypto'),
       cookie = require('cookie'),
       nonce = require('nonce')(),
