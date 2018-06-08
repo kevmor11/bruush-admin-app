@@ -18,3 +18,4 @@ Thumbs.db
 npm-debug.log
 compilation-stats.json
 .gitignore.swp
+aws-config.json

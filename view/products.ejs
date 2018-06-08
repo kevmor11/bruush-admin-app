@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/_head %>
+  </head>
+  <body>
+    <% include ../partials/_header %>
+    <section class="product mt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 text-center mt-2">
+            <form action="/products/id" method="post">
+              <label for="id">Enter an ID (ex: 1462122774646)</label><br>
+              <input type="text" name="id"><br>
+              <button class="btn btn-primary mt-2" type="submit">Get Product By ID</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
