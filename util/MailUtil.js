@@ -13,7 +13,7 @@ let transporter = nodemailer.createTransport({
 });
 
 // send some mail
-module.exports = function (to, subject, message) {
+module.exports = (to, subject, message) => {
   transporter.sendMail({
     from,
     to,
