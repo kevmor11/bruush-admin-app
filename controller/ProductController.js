@@ -7,7 +7,12 @@ exports.getProductById = (req, res) => {
   res.render('products');
 };
 
-// Display detail page for a specific product.
+/**
+Display detail page for a specific product
+
+Request:
+id - ID of Product Being Shown
+*/
 exports.detailProduct = (req, res) => {
   const id = req.body.id;
 

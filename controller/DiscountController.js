@@ -14,7 +14,13 @@ exports.listDiscount = (req, res) => {
   }
 };
 
-// Handle discount code create on POST.
+/**
+Handle discount code create on POST
+
+Request:
+code - Name of Discount Code
+formData - API Call Payload
+*/
 exports.createDiscount = (req, res) => {
   const code = req.body.code;
   const formData = {
@@ -35,7 +41,12 @@ exports.createDiscount = (req, res) => {
   }
 };
 
-// Handle discount delete on POST.
+/**
+Handle discount delete on POST
+
+Request:
+id - ID of Discount Code being Deleted
+*/
 exports.deleteDiscount = (req, res) => {
   const id = req.body.id;
 
