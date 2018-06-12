@@ -1,8 +1,9 @@
 const ImportController = require('../controller/ImportController'),
+      isLoggedIn = require('../util/isLoggedIn'),
       router = require('express').Router()
 
 // Get all discount codes
-.get('/', ImportController.getImport)
+.get('/', isLoggedIn, ImportController.getImport)
 
 // Create a discount code
 .post('/', ImportController.postImport);

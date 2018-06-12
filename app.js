@@ -63,7 +63,11 @@ app.use('/login', login)
 
 
 app.get('/', (req, res) => {
-  res.redirect('/dashboard');
+  if (req.user) {
+    res.redirect('/dashboard');
+  } else {
+    res.redirect('/login');
+  }
 });
 
 // Using custom ssl certificates in order to serve localhost over https
