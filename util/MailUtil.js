@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer'),
       from = require('../config/configs').sendFromMail;
 
 // configure AWS SDK
-aws.config.loadFromPath('aws-config.json');
+// aws.config.loadFromPath('aws-config.json');
 
 // create Nodemailer SES transporter
 let transporter = nodemailer.createTransport({
