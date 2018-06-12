@@ -79,6 +79,6 @@ app.get('/', isLoggedIn);
 // });
 
 // We can switch back to this implementation prior to production
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Example app listening on port 3000!');
 });
