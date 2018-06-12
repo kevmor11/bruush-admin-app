@@ -26,6 +26,7 @@ app.set('views', path.join(__dirname, 'view'))
 // Routes
 const login = require('./routes/login'),
       logout = require('./routes/logout'),
+      dashboard = require('./routes/dashboard'),
       imports = require('./routes/import'),
       logs = require('./routes/logs'),
       winners = require('./routes/winners'),
@@ -33,6 +34,7 @@ const login = require('./routes/login'),
 
 app.use('/login', login)
    .use('/logout', logout)
+   .use('/dashboard', dashboard)
    .use('/import', imports)
    .use('/logs', logs)
    .use('/winners', winners)
