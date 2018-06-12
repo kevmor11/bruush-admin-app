@@ -1,4 +1,4 @@
-const Logs = require('../model/logs');
+const Logs = require('../db/model/logs');
 
 // Get Logs Page.
 exports.getLogs = (req, res) => {

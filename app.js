@@ -7,8 +7,11 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       https = require('https'),
       fs = require('fs'),
+      passport = require('passport'),
+      LocalStrategy = require('passport-local').Strategy,
       connection = require('./db/connection'),
-      sendMail = require('./util/MailUtil');
+      sendMail = require('./util/MailUtil'),
+      passportConnection = require('./passport.js');
 
 // Settings view engine and middleware
 app.set('views', path.join(__dirname, 'view'))
@@ -16,7 +19,9 @@ app.set('views', path.join(__dirname, 'view'))
    .use(compression())
    .use(bodyParser.json())
    .use(bodyParser.urlencoded({ extended: false }))
-   .use(express.static(path.join(__dirname, './public')));
+   .use(express.static(path.join(__dirname, './public')))
+   .use(passport.initialize())
+   .use(passport.session());
 
 // Routes
 const login = require('./routes/login'),
@@ -44,8 +49,19 @@ const knex = Knex({
 
 Model.knex(knex);
 
+// passport.use(new Strategy(
+//   (username, password, cb) => {
+//     db.users.findByUsername(username, function(err, user) {
+//       if (err) { return cb(err); }
+//       if (!user) { return cb(null, false); }
+//       if (user.password != password) { return cb(null, false); }
+//       return cb(null, user);
+//     });
+//   }));
+
+
 app.get('/', (req, res) => {
-  res.redirect('/discounts');
+  res.redirect('/dashboard');
 });
 
 // Using custom ssl certificates in order to serve localhost over https

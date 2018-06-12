@@ -1,4 +1,4 @@
-const Product = require('../model/product'),
+const Product = require('../db/model/product'),
       shopifyUrl = require('../constants/ShopifyConstants').baseUrl,
       request = require('request');
 

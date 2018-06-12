@@ -27,7 +27,6 @@ https://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html
  - DATABASE_USER
  - DATABASE_PASSWORD
  - DATABASE_NAME
- - DATABASE_URL
  - SHOPIFY_DISCOUNT_ID
  - SHOPIFY_STORE_URL
  - SEND_FROM_MAIL

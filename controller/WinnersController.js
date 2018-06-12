@@ -1,4 +1,4 @@
-const Winners = require('../model/winners');
+const Winners = require('../db/model/winners');
 
 // Get Winners Page.
 exports.getWinners = (req, res) => {

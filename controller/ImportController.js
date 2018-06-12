@@ -1,4 +1,4 @@
-const Import = require('../model/import');
+const Import = require('../db/model/import');
 
 // Get Winners Page.
 exports.getImport = (req, res) => {
