@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/_head %>
+  </head>
+  <body>
+    <% include ../partials/_header %>
+    <section class="product mt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-2 offset-5 mt-2 text-center">
+            <form action="/login" method="post">
+              <label for="username">Username</label><br>
+              <input class="form-control" type="text" name="username"><br>
+              <label for="password">Password</label><br>
+              <input class="form-control" type="password" name="password"><br>
+              <button class="btn btn-primary mt-2" type="submit">Create Discount Code</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

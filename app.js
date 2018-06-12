@@ -19,11 +19,19 @@ app.set('views', path.join(__dirname, 'view'))
    .use(express.static(path.join(__dirname, './public')));
 
 // Routes
-const products = require('./routes/products'),
-      discounts = require('./routes/discounts');
+const login = require('./routes/login'),
+      logout = require('./routes/logout'),
+      imports = require('./routes/import'),
+      logs = require('./routes/logs'),
+      winners = require('./routes/winners'),
+      products = require('./routes/products');
 
-app.use('/products', products)
-   .use('/discounts', discounts);
+app.use('/login', login)
+   .use('/logout', logout)
+   .use('/import', imports)
+   .use('/logs', logs)
+   .use('/winners', winners)
+   .use('/products', products);
 
 // Knex config
 const knex = Knex({
@@ -44,7 +52,7 @@ app.get('/', (req, res) => {
 // I've done this because when I try to access localhost:3000 in Chrome,
   // it automically tries to serve localhost:3000 over https but it cannot without
   // these certificates
-var certOptions = {
+const certOptions = {
   key: fs.readFileSync(path.resolve('./server.key')),
   cert: fs.readFileSync(path.resolve('./server.crt'))
 };
