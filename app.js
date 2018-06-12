@@ -25,7 +25,7 @@ const knex = Knex({
 
 Model.knex(knex);
 
-// Settings view engine and middleware
+// Setting view engine and middleware
 app.set('views', path.join(__dirname, 'view'))
    .set('view engine', 'ejs')
    .use(compression())
