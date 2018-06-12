@@ -1,10 +1,10 @@
-const import_controller = require('../controller/ImportController'),
+const ImportController = require('../controller/ImportController'),
       router = require('express').Router()
 
 // Get all discount codes
-.get('/', import_controller.getImport)
+.get('/', ImportController.getImport)
 
 // Create a discount code
-.post('/', import_controller.postImport);
+.post('/', ImportController.postImport);
 
 module.exports = router;

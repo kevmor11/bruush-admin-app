@@ -30,7 +30,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass --include-path scss public/styles/input.scss public/styles/output.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\" ",
-    "start": "concurrently \"nodemon app.js\" \"npm run watch-css\" "
+    "start": "concurrently \"nodemon app.js\" \"npm run watch-css\" ",
+    "start-aws": "node app.js"
   },
   "author": "",
   "license": "ISC"
