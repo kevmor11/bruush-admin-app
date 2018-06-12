@@ -1,10 +1,10 @@
-const winners_controller = require('../controller/WinnersController'),
+const WinnersController = require('../controller/WinnersController'),
       router = require('express').Router()
 
 // Get all discount codes
-.get('/', winners_controller.getWinners)
+.get('/', WinnersController.getWinners)
 
 // Create a discount code
-.post('/', winners_controller.postWinners);
+.post('/', WinnersController.postWinners);
 
 module.exports = router;

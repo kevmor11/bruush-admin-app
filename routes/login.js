@@ -1,9 +1,9 @@
-const login_controller = require('../controller/LoginController'),
+const LoginController = require('../controller/LoginController'),
       passport = require('passport'),
       router = require('express').Router()
 
 // Get all discount codes
-.get('/', login_controller.getLogin)
+.get('/', LoginController.getLogin)
 
 // Create a discount code
 .post('/',
@@ -12,6 +12,8 @@ const login_controller = require('../controller/LoginController'),
     failureRedirect: '/login',
     failureFlash: true
   })
-);
+)
+
+.get('/hello', LoginController.hello)
 
 module.exports = router;

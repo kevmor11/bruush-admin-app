@@ -1,0 +1,11 @@
+branch-defaults:
+  master:
+    environment: dev-env
+  release:
+    environment: prod-env
+global:
+  application_name: prize
+  default_ec2_keyname: bruush
+  default_region: us-west-2
+  profile: bruush
+  sc: git

@@ -6,7 +6,12 @@ module.exports = require('knex')({
     host : process.env.DATABASE_HOST,
     user : process.env.DATABASE_USER,
     password : process.env.DATABASE_PASSWORD,
-    database : process.env.DATABASE_NAME
+    database : process.env.DATABASE_NAME,
+    timezone: 'utc',
+  },
+  pool: {
+    min: 2,
+    max: 10
   },
   migrations: {
     tableName: 'migrations'

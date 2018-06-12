@@ -13,6 +13,17 @@ const express = require('express'),
       sendMail = require('./util/MailUtil'),
       passportConnection = require('./passport.js');
 
+// Knex config
+const knex = Knex({
+  client: 'mysql',
+  useNullAsDefault: true,
+  connection: {
+    filename: './db/connection'
+  }
+});
+
+Model.knex(knex);
+
 // Settings view engine and middleware
 app.set('views', path.join(__dirname, 'view'))
    .set('view engine', 'ejs')
@@ -40,17 +51,6 @@ app.use('/login', login)
    .use('/winners', winners)
    .use('/products', products);
 
-// Knex config
-const knex = Knex({
-  client: 'mysql',
-  useNullAsDefault: true,
-  connection: {
-    filename: './db/connection'
-  }
-});
-
-Model.knex(knex);
-
 // passport.use(new Strategy(
 //   (username, password, cb) => {
 //     db.users.findByUsername(username, function(err, user) {
@@ -70,16 +70,16 @@ app.get('/', (req, res) => {
 // I've done this because when I try to access localhost:3000 in Chrome,
   // it automically tries to serve localhost:3000 over https but it cannot without
   // these certificates
-const certOptions = {
-  key: fs.readFileSync(path.resolve('./server.key')),
-  cert: fs.readFileSync(path.resolve('./server.crt'))
-};
+// const certOptions = {
+//   key: fs.readFileSync(path.resolve('./server.key')),
+//   cert: fs.readFileSync(path.resolve('./server.crt'))
+// };
 
-https.createServer(certOptions, app).listen(3000, () => {
-  console.log('Example app listening on port 3000!');
-});
-
-// We can switch back to this implementation prior to production
-// app.listen(3000, () => {
+// https.createServer(certOptions, app).listen(3000, () => {
 //   console.log('Example app listening on port 3000!');
 // });
+
+// We can switch back to this implementation prior to production
+app.listen(3000, () => {
+  console.log('Example app listening on port 3000!');
+});

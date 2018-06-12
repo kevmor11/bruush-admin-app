@@ -1,4 +1,4 @@
-const Login = require('../db/model/users');
+const UserRepository = require('../db/repository/UserRepository');
 
 // Get Login Page.
 exports.getLogin = (req, res) => {
@@ -23,4 +23,12 @@ exports.postLogin = (req, res) => {
 exports.logout = (req, res) => {
   req.logout();
   res.redirect('/');
+};
+
+exports.hello = (req, res) => {
+  UserRepository.getUserByUsername('kenneth').then(results => {
+  	console.log(results);
+  });
+  
+  res.render('login');
 };
