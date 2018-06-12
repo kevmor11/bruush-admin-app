@@ -2,7 +2,11 @@ const UserRepository = require('../db/repository/UserRepository');
 
 // Get Login Page.
 exports.getLogin = (req, res) => {
-  res.render('login');
+  if(req.user) {
+    res.redirect('/dashboard');
+  } else {
+    res.render('login');
+  }
 };
 
 /**
