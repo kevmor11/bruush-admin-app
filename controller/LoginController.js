@@ -16,20 +16,22 @@ exports.postLogin = (req, res) => {
   const username = req.body.username,
         password = req.body.password;
 
-
+  UserRepository.getUserByUsername(username).then(result => {
+    console.log("Result: ", result);
+  });
 };
 
 // Logout
 exports.logout = (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 };
 
 exports.hello = (req, res) => {
   UserRepository.getUserByUsername('kenneth').then(results => {
   	console.log(results);
   });
-  
+
   res.render('login');
 };
 
@@ -45,11 +47,12 @@ exports.hello2 = (req, res) => {
   return getUserByUsername();
 };
 */
+
 exports.listUsers = (req, res) => {
   const page = req.params.page;
   UserRepository.listUsers(page).then(result => {
   	console.log(result);
   });
-  
+
   res.render('login');
 };

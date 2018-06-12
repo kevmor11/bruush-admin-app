@@ -1,10 +1,11 @@
-const logs_controller = require('../controller/LogsController'),
+const LogsController = require('../controller/LogsController'),
+      isLoggedIn = require('../util/isLoggedIn'),
       router = require('express').Router()
 
 // Get all logs
-.get('/', logs_controller.getLogs)
+.get('/', isLoggedIn, LogsController.getLogs)
 
 // Create a discount log
-.post('/', logs_controller.postLogs);
+.post('/', LogsController.postLogs);
 
 module.exports = router;
