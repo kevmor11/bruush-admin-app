@@ -4,6 +4,8 @@ const Model = objection.Model;
 const knex = require('../connection');
 Model.knex(knex);
 
+const configs = require('../../config/configs');
+
 module.exports = {
   getUserByUsername: (username) => {
   	return User
@@ -11,25 +13,19 @@ module.exports = {
 	  .where('username', '=', username)
   },
 
+  listUsers: (page) => {
+
+  	console.log(configs.pageSize);
+
+  	return User
+	  .query()
+	  .page(page - 1, configs.pageSize);
+  },
+
 /*
   getById(id) {
     return User.query()
       .where('id', '=', id);
-  },
-
-  asyncGet(id) {
-    const query = async () => {
-      const clients = await Client.query()
-      .where('id', '=', id);
-
-      let client = null;
-      if (clients && clients.length > 0) {
-        client = clients[0];
-      }
-      return client;
-    }
-
-    return query();
   },
 
   listByRetailerId(retailerId, page) {

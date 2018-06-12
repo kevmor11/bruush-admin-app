@@ -32,3 +32,24 @@ exports.hello = (req, res) => {
   
   res.render('login');
 };
+
+/*
+exports.hello2 = (req, res) => {
+  const getUserByUsername = async () => {
+  	const user = await UserRepository.getUserByUsername('kenneth');
+  	console.log(user);
+
+  	res.render('login');
+  };
+
+  return getUserByUsername();
+};
+*/
+exports.listUsers = (req, res) => {
+  const page = req.params.page;
+  UserRepository.listUsers(page).then(result => {
+  	console.log(result);
+  });
+  
+  res.render('login');
+};
