@@ -7,8 +7,10 @@ exports.getImport = (req, res) => {
 
 
 exports.postImport = (req, res) => {
-  const csv = req.body.csv,
+  const csv = req.file,
+        fileName = csv.originalname,
         productID = req.body.product;
   console.log("CSV", csv);
+  console.log("Name", fileName);
   console.log("productID", productID);
 };

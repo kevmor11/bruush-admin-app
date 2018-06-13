@@ -14,7 +14,7 @@
               <div class="input-group">
                 <label class="input-group-btn mb-0">
                   <span class="btn btn-primary">
-                    Browse… <input id="file" type="file" style="display: none;" multiple="" name="csv">
+                    Browse… <input id="file" type="file" style="display: none;" name="csv">
                   </span>
                 </label>
                 <input id="reader" type="text" class="form-control field" readonly="">
@@ -33,7 +33,7 @@
     </section>
     <script>
       $('#file').on('change', () => {
-        var value = $(this).val().substr(12);
+        var value = $('#file').val().substr(12);
         $('#reader').attr('placeholder',value);
       });
     </script>
