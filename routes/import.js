@@ -6,6 +6,6 @@ const ImportController = require('../controller/ImportController'),
 .get('/', isLoggedIn, ImportController.getImport)
 
 // Create a discount code
-.post('/', ImportController.postImport);
+.post('/upload', ImportController.postImport);
 
 module.exports = router;

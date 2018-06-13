@@ -47,7 +47,7 @@ const login = require('./routes/login'),
 app.use('/login', login)
    .use('/logout', logout)
    .use('/dashboard', dashboard)
-   .use('/import', imports)
+   .use('/import_csv', imports)
    .use('/logs', logs)
    .use('/winners', winners)
    .use('/products', products);
@@ -69,10 +69,10 @@ app.get('/', isLoggedIn);
 // I've done this because when I try to access localhost:3000 in Chrome,
   // it automically tries to serve localhost:3000 over https but it cannot without
   // these certificates
-const certOptions = {
-  key: fs.readFileSync(path.resolve('./server.key')),
-  cert: fs.readFileSync(path.resolve('./server.crt'))
-};
+// const certOptions = {
+//   key: fs.readFileSync(path.resolve('./server.key')),
+//   cert: fs.readFileSync(path.resolve('./server.crt'))
+// };
 
 // https.createServer(certOptions, app).listen(process.env.PORT, () => {
 //   console.log('Example app listening on port 3000!');

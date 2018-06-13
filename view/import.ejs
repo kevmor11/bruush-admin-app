@@ -8,11 +8,34 @@
     <section class="product mt-5">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-6 offset-5 mt-2">
-            <h1>Imports</h1>
+          <div class="col-6 offset-4 mt-2">
+            <h1 class="ml-5 pl-5">Import CSV</h1>
+            <form class="mt-4" action="/import_csv/upload" method="POST" enctype="multipart/form-data">
+              <div class="input-group">
+                <label class="input-group-btn mb-0">
+                  <span class="btn btn-primary">
+                    Browse… <input id="file" type="file" style="display: none;" multiple="" name="csv">
+                  </span>
+                </label>
+                <input id="reader" type="text" class="form-control field" readonly="">
+              </div>
+              <select class="product mt-4 form-control" name="product">
+                <option value="1">Product 1</option>
+                <option value="2">Product 2</option>
+                <option value="3">Product 3</option>
+                <option value="4">Product 4</option>
+              </select>
+              <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
+            </form>
           </div>
         </div>
       </div>
     </section>
+    <script>
+      $('#file').on('change', () => {
+        var value = $(this).val().substr(12);
+        $('#reader').attr('placeholder',value);
+      });
+    </script>
   </body>
 </html>

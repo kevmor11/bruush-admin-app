@@ -7,5 +7,7 @@ exports.getImport = (req, res) => {
 
 
 exports.postImport = (req, res) => {
-
+  const csv = req.body.csv,
+        productID = req.body.product;
+  console.log("BODY", body);
 };

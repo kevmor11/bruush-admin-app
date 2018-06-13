@@ -8,3 +8,29 @@ header {
     color: grey;
   }
 }
+
+.input-group-btn {
+  position: relative;
+  font-size: 0;
+  white-space: nowrap;
+  vertical-align: middle;
+  span {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+input.field {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  flex: none !important;
+  width: 300px !important;
+}
+
+select.product {
+  width: 392px !important;
+}
+
+button.submit-prod {
+  margin-left: 150px;
+}
