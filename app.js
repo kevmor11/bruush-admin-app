@@ -19,7 +19,7 @@ const knex = Knex({
   client: 'mysql',
   useNullAsDefault: true,
   connection: {
-    filename: './db/connection'
+    filename: './knexfile'
   }
 });
 
@@ -74,11 +74,11 @@ const certOptions = {
   cert: fs.readFileSync(path.resolve('./server.crt'))
 };
 
-https.createServer(certOptions, app).listen(process.env.PORT, () => {
-  console.log('Example app listening on port 3000!');
-});
-
-// We can switch back to this implementation prior to production
-// app.listen(process.env.PORT, () => {
+// https.createServer(certOptions, app).listen(process.env.PORT, () => {
 //   console.log('Example app listening on port 3000!');
 // });
+
+// We can switch back to this implementation prior to production
+app.listen(process.env.PORT, () => {
+  console.log('Example app listening on port 3000!');
+});

@@ -11,7 +11,6 @@ exports.getLogin = (req, res) => {
 
 /**
 Post login information
-
 Request:
 username - Admin username
 password - Admin password
@@ -44,10 +43,8 @@ exports.hello2 = (req, res) => {
   const getUserByUsername = async () => {
   	const user = await UserRepository.getUserByUsername('kenneth');
   	console.log(user);
-
   	res.render('login');
   };
-
   return getUserByUsername();
 };
 */

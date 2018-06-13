@@ -27,7 +27,6 @@ module.exports = {
     return User.query()
       .where('id', '=', id);
   },
-
   listByRetailerId(retailerId, page) {
     return Client.query()
       .where('retailerId', '=', retailerId)
