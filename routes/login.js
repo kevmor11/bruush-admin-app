@@ -1,4 +1,5 @@
 const LoginController = require('../controller/LoginController'),
+      isLoggedIn = require('../util/isLoggedIn'),
       passport = require('passport'),
       router = require('express').Router()
 

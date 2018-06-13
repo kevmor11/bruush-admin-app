@@ -1,6 +1,6 @@
 branch-defaults:
   master:
-    environment: dev-env
+    environment: env-dev
   release:
     environment: prod-env
 global:

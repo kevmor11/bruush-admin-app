@@ -1,4 +1,4 @@
-const Discount = require('../db/model/discount'),
+const Discount = require('../db/model/Discount'),
       shopifyURL = require('../constants/ShopifyConstants').baseUrl,
       request = require('request');
 
