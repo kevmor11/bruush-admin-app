@@ -7,11 +7,12 @@ const LoginController = require('../controller/LoginController'),
 
 // Create a discount code
 .post('/',
-  passport.authenticate('local', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/login',
-    failureFlash: true
-  })
+  // passport.authenticate('local', {
+  //   successRedirect: '/dashboard',
+  //   failureRedirect: '/login',
+  //   failureFlash: true
+  // })
+  LoginController.postLogin
 )
 
 .get('/hello', LoginController.hello)

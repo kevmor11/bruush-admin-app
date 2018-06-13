@@ -1,10 +1,10 @@
-const User = require('../model/User');
-const objection = require('objection');
-const Model = objection.Model;
-const knex = require('../connection');
-Model.knex(knex);
+const User = require('../model/User'),
+      objection = require('objection'),
+      Model = objection.Model,
+      knex = require('../connection'),
+      configs = require('../../config/configs');
 
-const configs = require('../../config/configs');
+Model.knex(knex);
 
 module.exports = {
   getUserByUsername: (username) => {
@@ -27,7 +27,6 @@ module.exports = {
     return User.query()
       .where('id', '=', id);
   },
-
   listByRetailerId(retailerId, page) {
     return Client.query()
       .where('retailerId', '=', retailerId)

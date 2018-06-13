@@ -1,8 +1,8 @@
-const router = require('express').Router()
+const isLoggedIn = require('../util/isLoggedIn'),
+      router = require('express').Router()
 
 // Get all discount codes
-.get('/', (req,res) => {
-  // TODO check that user is logged in, else redirect to /login
+.get('/', isLoggedIn, (req,res) => {
   res.render('dashboard');
 });
 

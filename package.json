@@ -24,13 +24,14 @@
     "fs": "0.0.1-security",
     "https": "^1.0.0",
     "node-sass": "^4.9.0",
-    "nodemon": "^1.17.5",
+    "nodemon": "^1.17.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-css": "node-sass --include-path scss public/styles/input.scss public/styles/output.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\" ",
-    "start": "concurrently \"nodemon app.js\" \"npm run watch-css\" "
+    "dev": "concurrently \"nodemon app.js\" \"npm run watch-css\" ",
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC"

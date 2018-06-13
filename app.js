@@ -11,6 +11,7 @@ const express = require('express'),
       LocalStrategy = require('passport-local').Strategy,
       connection = require('./db/connection'),
       sendMail = require('./util/MailUtil'),
+      isLoggedIn = require('./util/isLoggedIn'),
       passportConnection = require('./passport.js');
 
 // Knex config
@@ -18,7 +19,7 @@ const knex = Knex({
   client: 'mysql',
   useNullAsDefault: true,
   connection: {
-    filename: './db/connection'
+    filename: './knexfile'
   }
 });
 
@@ -62,9 +63,7 @@ app.use('/login', login)
 //   }));
 
 
-app.get('/', (req, res) => {
-  res.redirect('/dashboard');
-});
+app.get('/', isLoggedIn);
 
 // Using custom ssl certificates in order to serve localhost over https
 // I've done this because when I try to access localhost:3000 in Chrome,
