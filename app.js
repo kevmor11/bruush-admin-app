@@ -25,7 +25,7 @@ const knex = Knex({
 
 Model.knex(knex);
 
-// Settings view engine and middleware
+// Setting view engine and middleware
 app.set('views', path.join(__dirname, 'view'))
    .set('view engine', 'ejs')
    .use(compression())
@@ -74,11 +74,11 @@ app.get('/', isLoggedIn);
 //   cert: fs.readFileSync(path.resolve('./server.crt'))
 // };
 
-// https.createServer(certOptions, app).listen(3000, () => {
+// https.createServer(certOptions, app).listen(process.env.PORT, () => {
 //   console.log('Example app listening on port 3000!');
 // });
 
 // We can switch back to this implementation prior to production
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
   console.log('Example app listening on port 3000!');
 });

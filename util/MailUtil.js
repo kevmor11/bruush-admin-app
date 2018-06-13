@@ -2,8 +2,10 @@ const nodemailer = require('nodemailer'),
       aws = require('aws-sdk'),
       from = require('../config/configs').sendFromMail;
 
-// configure AWS SDK
-// aws.config.loadFromPath('aws-config.json');
+aws.config = new aws.Config();
+aws.config.accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+aws.config.secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+aws.config.region = "us-west-2";
 
 // create Nodemailer SES transporter
 let transporter = nodemailer.createTransport({
