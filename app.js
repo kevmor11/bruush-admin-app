@@ -72,6 +72,26 @@ app.get('/', (req, res) => {
   res.redirect('/dashboard');
 });
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next){
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('error', { url: req.url });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Page Not found');
+});
+
 // Using custom ssl certificates in order to serve localhost over https
 // I've done this because when I try to access localhost:3000 in Chrome,
   // it automically tries to serve localhost:3000 over https but it cannot without
