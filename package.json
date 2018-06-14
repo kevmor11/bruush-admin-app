@@ -23,7 +23,6 @@
     "request": "^2.87.0"
   },
   "devDependencies": {
-    "fs": "0.0.1-security",
     "https": "^1.0.0",
     "node-sass": "^4.9.0",
     "nodemon": "^1.17.5"
