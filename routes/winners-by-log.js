@@ -3,6 +3,6 @@ const WinnersController = require('../controller/WinnersController'),
       router = require('express').Router()
 
 // Get all discount codes
-.get('/', isLoggedIn, WinnersController.getWinners)
+.get('/:id', isLoggedIn, WinnersController.getWinnersByLog)
 
 module.exports = router;

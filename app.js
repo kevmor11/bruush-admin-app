@@ -42,6 +42,7 @@ const login = require('./routes/login'),
       imports = require('./routes/import'),
       logs = require('./routes/logs'),
       winners = require('./routes/winners'),
+      winnersByLog = require('./routes/winners-by-log'),
       products = require('./routes/products'),
       editProduct = require('./routes/edit-product');
 
@@ -49,8 +50,9 @@ app.use('/login', login)
    .use('/logout', logout)
    .use('/dashboard', dashboard)
    .use('/import_csv', imports)
-   .use('/logs', logs)
+   .use('/import_logs', logs)
    .use('/winners', winners)
+   .use('/winners_by_log', winnersByLog)
    .use('/products', products)
    .use('/edit_product', editProduct);
 

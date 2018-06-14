@@ -9,3 +9,13 @@ exports.getWinners = (req, res) => {
 exports.postWinners = (req, res) => {
 
 };
+
+// Get Winners Page.
+exports.getWinnersByLog = (req, res) => {
+  res.render('winners-by-log');
+};
+
+
+exports.postWinnersByLog = (req, res) => {
+
+};
