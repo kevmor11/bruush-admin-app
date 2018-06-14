@@ -9,8 +9,9 @@ exports.getImport = (req, res) => {
 
 exports.postImport = (req, res) => {
   const csvFile = req.file.buffer,
-        csvData = [],
-        productID = req.body.product;
+        productID = req.body.product,
+        discount_code = '';
+        // TODO where to get discount code??
 
   csvParser(csvFile, {
     delimiter: ','
@@ -18,17 +19,35 @@ exports.postImport = (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      data.forEach((row) => {
+      const csvInsert = new Promise((resolve, reject) => {
         const query = knex('csv_log').insert([
-          { email: row[0] },
-          { created_date: row[1] },
-          { num_referrals: row[2] },
-          { product_id: productID }
+          { num_winners: (data.length + 1) },
+          { product_id: productID },
+          { discount_code /* TODO get discount code */ }
         ]);
+        resolve(query);
+        reject(new Error('The csv_log insert query failed'));
+      });
 
-        if(query) {
-          res.render('import-success');
-        }
+      csvInsert.then(() => {
+        data.forEach((row) => {
+          try {
+            const query = knex('customer').insert([
+              { email: row[0] },
+              { created_date: row[1] },
+              { num_referrals: row[2] },
+              { product_id: productID },
+              { discount_code /* TODO get discount code */ }
+            ]);
+
+            if(query) {
+              res.render('import-success');
+            }
+          } catch (error) {
+            console.log("The customer insert query failed");
+            return res.end(error.message);
+          }
+        });
       });
     }
   });

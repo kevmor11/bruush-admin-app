@@ -72,8 +72,8 @@ app.get('/', (req, res) => {
   res.redirect('/dashboard');
 });
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next){
+// catch 404 and give response
+app.use((req, res) => {
   res.status(404);
 
   // respond with html page
