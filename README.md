@@ -1,5 +1,6 @@
 ## Knex Commands
 
+ - `knex migrate:make [migration name]` to create a new migration
  - Once migrations are written - `knex migrate:latest` to run the migration
  - `knex migrate:rollback` to rollback the most recent batch of migrations
 

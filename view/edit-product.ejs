@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partials/_head %>
+  </head>
+  <body>
+    <% include ../partials/_header %>
+    <section class="product mt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 offset-4 mt-2">
+            <h1 class="ml-5 pl-5">Edit Product</h1>
+            <form class="mt-4" action="/edit_product/upload" method="POST" data-parsley-validate>
+              <div class="input-group mb-3">
+                <label for="name">Name:</label>
+                <input type="text" class="text-input" name="name" required data-parsley-min="5" data-parsley-type="alphanum">
+              </div>
+              <div class="input-group mb-3">
+                <label for="product-id">Shopify ID:</label>
+                <input type="text" class="text-input" name="productid" required data-parsley-type="alphanum">
+              </div>
+              <div class="input-group mb-3">
+                <label for="discount-code">Discount Code:</label>
+                <input type="text" class="text-input" name="discountcode" required data-parsley-type="alphanum">
+              </div>
+              <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

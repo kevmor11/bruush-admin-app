@@ -42,7 +42,8 @@ const login = require('./routes/login'),
       imports = require('./routes/import'),
       logs = require('./routes/logs'),
       winners = require('./routes/winners'),
-      products = require('./routes/products');
+      products = require('./routes/products'),
+      editProduct = require('./routes/edit-product');
 
 app.use('/login', login)
    .use('/logout', logout)
@@ -50,7 +51,8 @@ app.use('/login', login)
    .use('/import_csv', imports)
    .use('/logs', logs)
    .use('/winners', winners)
-   .use('/products', products);
+   .use('/products', products)
+   .use('/edit_product', editProduct);
 
 // passport.use(new Strategy(
 //   (username, password, cb) => {

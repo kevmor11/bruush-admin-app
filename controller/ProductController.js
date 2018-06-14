@@ -25,3 +25,15 @@ exports.detailProduct = (req, res) => {
     return res.end(error.message);
   }
 };
+
+// Get Product Edit page
+exports.getCreateProduct = (req, res) => {
+  res.render('edit-product');
+};
+
+// Post info to add a product
+exports.postCreateProduct = (req, res) => {
+  const name = req.body.name,
+        productId = req.body.productid,
+        discountCode = req.body.discountcode;
+};

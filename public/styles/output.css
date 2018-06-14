@@ -26,3 +26,27 @@ select.product {
 
 button.submit-prod {
   margin-left: 150px; }
+
+a.add-product {
+  right: 220px;
+  top: 110px;
+  z-index: 2; }
+
+label {
+  min-width: 120px;
+  text-align: right; }
+
+input.text-input {
+  border-radius: 3px;
+  width: 300px;
+  vertical-align: middle;
+  border: .5px solid lightgrey;
+  margin-left: 10px; }
+
+div#products_wrapper {
+  width: 80%; }
+
+section.product-table {
+  padding-top: 30px; }
+  section.product-table table#products {
+    margin: 0 auto; }
