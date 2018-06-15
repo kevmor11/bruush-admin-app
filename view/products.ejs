@@ -6,7 +6,7 @@
   <body>
     <% include ../partials/_header %>
     <a href="/edit_product" class="btn btn-primary position-absolute add-product">Add Product</a>
-    <section class="product-table mt-5">
+    <section class="product-table mt-5 pb-5">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12 mt-2">
@@ -22,27 +22,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>Data</td>
-                </tr>
-                <tr>
-                  <th>2</th>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                </tr>
-                <tr>
-                  <th>3</th>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                </tr>
+                <% products.forEach((product) => { %>
+                  <tr>
+                    <th><%= product.id %></th>
+                    <td><%= product.product_shopify_id %></td>
+                    <td><%= product.name %></td>
+                    <td><%= product.discount_code %></td>
+                    <td><a href="/edit_product?id=<%= product.id %>" class="btn btn-outline-primary">Edit</a></td>
+                  </tr>
+                <% }) %>
               </tbody>
             </table>
           </div>

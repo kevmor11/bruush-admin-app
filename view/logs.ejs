@@ -5,7 +5,7 @@
   </head>
   <body>
     <% include ../partials/_header %>
-    <section class="product-table mt-5">
+    <section class="product-table mt-5 pb-5">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12 mt-2">
@@ -16,7 +16,7 @@
                   <th>ID</th>
                   <th>Batch Date</th>
                   <th># of Winners</th>
-                  <th>Product</th>
+                  <th>Product Name</th>
                   <th>Discount Code</th>
                   <th>Status</th>
                   <th>Last Sent Date</th>
@@ -24,62 +24,43 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <!-- TODO loop through table data and change modal message depending on if email was sent or not -->
-                    <!-- get elements by classname and then loop through those results to change the modal question -->
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>
-                    <a href="/winners_by_log/" class="btn btn-primary">View Winners</a>
-                    <a href="#1" rel="modal:open" class="btn btn-outline-danger send-email">Send Emails</a>
-                  </td>
-                  <div id="1" class="modal modal-prompt text-center">
-                    <h5 class="messsage mb-5">Do you want to send emails to all winners?</h5>
-                    <button class="btn btn-primary m-2">Yes, Send This</button>
-                    <button class="btn btn-danger m-2">No, Do Not Send</button>
-                  </div>
-                </tr>
-                <tr>
-                  <th>2</th>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>
-                    <a href="/winners_by_log/" class="btn btn-primary">View Winners</a>
-                    <a href="#2" rel="modal:open" class="btn btn-outline-danger send-email">Send Emails</a>
-                  </td>
-                  <div id="2" class="modal modal-prompt text-center">
-                    <h5 class="messsage mb-5">Do you want to send emails to all winners?</h5>
-                    <button class="btn btn-primary m-2">Yes, Send This</button>
-                    <button class="btn btn-danger m-2">No, Do Not Send</button>
-                  </div>
-                </tr>
-                <tr>
-                  <th>3</th>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>
-                    <a href="/winners_by_log/" class="btn btn-primary">View Winners</a>
-                    <a href="#3" rel="modal:open" class="btn btn-outline-danger send-email">Send Emails</a>
-                  </td>
-                  <div id="3" class="modal modal-prompt text-center">
-                    <h5 class="messsage mb-5">Do you want to send emails to all winners?</h5>
-                    <button class="btn btn-primary m-2">Yes, Send This</button>
-                    <button class="btn btn-danger m-2">No, Do Not Send</button>
-                  </div>
-                </tr>
+                <% logs.forEach((log) => { %>
+                  <tr>
+                    <th><%= log.id %></th>
+                    <td><%= log.created_at.toString().substring(0,25) %></td>
+                    <td><%= log.num_winners %></td>
+                    <!-- TODO loop through table data and change modal message depending on if email was sent or not -->
+                      <!-- get elements by classname and then loop through those results to change the modal question -->
+                    <td><%= log.name %></td>
+                    <td><%= log.discount_code %></td>
+
+                    <% if(log.email_sent_date === null) { %>
+                      <td>New</td>
+                    <% } else { %>
+                      <td>Sent</td>
+                    <% } %>
+
+                    <% if(log.email_sent_date === null) { %>
+                      <td>Not Sent Yet</td>
+                    <% } else { %>
+                      <td><%= log.email_sent_date %></td>
+                    <% } %>
+
+                    <td>
+                      <a href="/winners_by_log/" class="btn btn-primary">View Winners</a>
+                      <a href="#<%= log.id %>" rel="modal:open" class="btn btn-outline-danger send-email">Send Emails</a>
+                      <div id="<%= log.id %>" class="modal modal-prompt text-center">
+                        <% if(log.email_sent_date === null) { %>
+                          <h5 class="messsage mb-5">Do you want to send emails to all winners?</h5>
+                        <% } else { %>
+                          <h5 class="messsage mb-5">You have sent this already. Do you want to re-send the emails to all the winners?</h5>
+                        <% } %>
+                        <button class="btn btn-primary m-2">Yes, Send This</button>
+                        <button class="btn btn-danger m-2">No, Do Not Send</button>
+                      </div>
+                    </td>
+                  </tr>
+                <% }) %>
               </tbody>
             </table>
           </div>

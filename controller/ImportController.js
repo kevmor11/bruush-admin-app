@@ -36,7 +36,7 @@ exports.postImport = (req, res) => {
               }])
               .then((result2) => {
                 if(result2 && index === (data.length - 1)) {
-                  res.render('success', { title: 'CSV Import' });
+                  res.render('success', { title: 'CSV Import Uploaded' });
                 }
               });
             });

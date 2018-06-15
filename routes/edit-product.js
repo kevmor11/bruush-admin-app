@@ -4,6 +4,8 @@ const ProductController = require('../controller/ProductController'),
 
 .get('/', isLoggedIn, ProductController.getCreateProduct)
 
-.post('/upload', ProductController.postCreateProduct);
+.post('/upload', ProductController.postCreateProduct)
+
+.post('/update', ProductController.postUpdateProduct);
 
 module.exports = router;

@@ -4,9 +4,14 @@ const Product = require('../db/model/Product'),
       knexFile = require('../knexfile'),
       knex = require('knex')(knexFile);
 
-// Search for a product by ID.
-exports.getProductById = (req, res) => {
-  res.render('products');
+// Get all products.
+exports.getProducts = (req, res) => {
+  knex
+    .select('id','product_shopify_id','name','discount_code')
+    .from('product')
+    .then((products) => {
+      res.render('products', { products });
+    });
 };
 
 /**
@@ -30,23 +35,57 @@ exports.detailProduct = (req, res) => {
 
 // Get Product Edit page
 exports.getCreateProduct = (req, res) => {
-  res.render('edit-product');
+  const id = req.query.id;
+  if(id) {
+    knex
+      .select('product_shopify_id','name','discount_code')
+      .from('product')
+      .where({ id })
+      .then((product) => {
+        product = product[0];
+        res.render('edit-product', { product, id });
+      });
+  } else {
+    res.render('edit-product');
+  }
 };
 
-// Post info to add a product
+// Post info to create a product
 exports.postCreateProduct = (req, res) => {
   const name = req.body.name,
         product_shopify_id = req.body.productid,
         discount_code = req.body.discountcode;
 
-  knex('product').insert([{
-    name,
-    product_shopify_id,
-    discount_code
-  }])
-  .then((result) => {
-    if(result) {
-      res.render('success', { title: 'Product' });
-    }
-  });
+  knex('product')
+    .insert([{
+      name,
+      product_shopify_id,
+      discount_code
+    }])
+    .then((result) => {
+      if(result) {
+        res.render('success', { title: 'Product Uploaded' });
+      }
+    });
+};
+
+// Post info to update a product
+exports.postUpdateProduct = (req, res) => {
+  const name = req.body.name,
+        product_shopify_id = req.body.productid,
+        discount_code = req.body.discountcode,
+        id = req.body.id;
+
+  knex('product')
+    .where({ id })
+    .update({
+      name,
+      product_shopify_id,
+      discount_code
+    })
+    .then((result) => {
+      if(result) {
+        res.render('success', { title: `Product ${name} Updated` });
+      }
+    });
 };
