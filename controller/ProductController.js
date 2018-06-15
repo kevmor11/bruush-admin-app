@@ -1,6 +1,8 @@
 const Product = require('../db/model/Product'),
       shopifyUrl = require('../constants/ShopifyConstants').baseUrl,
-      request = require('request');
+      request = require('request'),
+      knexFile = require('../knexfile'),
+      knex = require('knex')(knexFile);
 
 // Search for a product by ID.
 exports.getProductById = (req, res) => {
@@ -34,6 +36,17 @@ exports.getCreateProduct = (req, res) => {
 // Post info to add a product
 exports.postCreateProduct = (req, res) => {
   const name = req.body.name,
-        productId = req.body.productid,
-        discountCode = req.body.discountcode;
+        product_shopify_id = req.body.productid,
+        discount_code = req.body.discountcode;
+
+  knex('product').insert([{
+    name,
+    product_shopify_id,
+    discount_code
+  }])
+  .then((result) => {
+    if(result) {
+      res.render('success', { title: 'Product' });
+    }
+  });
 };
