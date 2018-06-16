@@ -19,31 +19,34 @@ exports.postImport = (req, res) => {
       if (err) {
         console.log("CSV Error: ", err);
       } else {
-        knex('csv_log').insert([{
-          num_winners: (data.length + 1),
-          product_id: productID,
-          discount_code
-        }])
-        .then((result) => {
-          if(result) {
-            data.forEach((row, index) => {
-              knex('customer').insert([{
-                email: row[0],
-                signup_date: row[1],
-                num_referrals: row[2],
-                product_id: productID,
-                discount_code
-              }])
-              .then((result2) => {
-                if(result2 && index === (data.length - 1)) {
-                  res.render('success', { title: 'CSV Import Uploaded' });
-                }
+        knex('csv_log')
+          .insert([{
+            num_winners: (data.length + 1),
+            product_id: productID,
+            discount_code
+          }], 'id')
+          .then((result) => {
+            const csv_log_id = result[0];
+            if(result) {
+              data.forEach((row, index) => {
+                knex('customer').insert([{
+                  email: row[0],
+                  signup_date: row[1],
+                  num_referrals: row[2],
+                  product_id: productID,
+                  csv_log_id,
+                  discount_code
+                }])
+                .then((result2) => {
+                  if(result2 && index === (data.length - 1)) {
+                    res.render('success', { title: 'CSV Import Uploaded' });
+                  }
+                });
               });
-            });
-          } else {
-            console.log("Error uploading CSV data to Customer table");
-          }
-        });
+            } else {
+              console.log("Error uploading CSV data to Customer table");
+            }
+          });
       }
     });
   } catch (error) {

@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12 mt-2">
-            <h1 class="text-center md-2">Winners for Product</h1>
+            <h1 class="text-center md-2">Winners for Log with ID # <%= id %></h1>
             <table id="products" class="table table-striped table-bordered">
               <thead>
                 <tr>
@@ -22,30 +22,20 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th>1</th>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>Data</td>
-                  <td>Data</td>
-                </tr>
-                <tr>
-                  <th>2</th>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                  <td>Kevin</td>
-                </tr>
-                <tr>
-                  <th>3</th>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                  <td>Ben</td>
-                </tr>
+                <% winners.forEach((winner) => { %>
+                  <tr>
+                    <th><%= winner.id %></th>
+                    <td><%= winner.email %></td>
+                    <td><%= winner.num_referrals %></td>
+                    <td><%= winner.name %></td>
+                    <td><%= winner.discount_code %></td>
+                    <% if(winner.email_sent_date === null) { %>
+                      <td>Not Yet Sent</td>
+                    <% } else { %>
+                      <td><%= winner.email_sent_date %></td>
+                    <% } %>
+                  </tr>
+                <% }) %>
               </tbody>
             </table>
           </div>
@@ -54,7 +44,10 @@
     </section>
     <script>
       $(document).ready(() => {
-        $('#products').DataTable();
+        $('#products').DataTable({
+          paging: false,
+          info: false
+        });
       });
     </script>
   </body>

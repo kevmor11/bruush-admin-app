@@ -29,8 +29,6 @@
                     <th><%= log.id %></th>
                     <td><%= log.created_at.toString().substring(0,25) %></td>
                     <td><%= log.num_winners %></td>
-                    <!-- TODO loop through table data and change modal message depending on if email was sent or not -->
-                      <!-- get elements by classname and then loop through those results to change the modal question -->
                     <td><%= log.name %></td>
                     <td><%= log.discount_code %></td>
 
@@ -47,7 +45,7 @@
                     <% } %>
 
                     <td>
-                      <a href="/winners_by_log/" class="btn btn-primary">View Winners</a>
+                      <a href="/winners_by_log/<%= log.id %>" class="btn btn-primary">View Winners</a>
                       <a href="#<%= log.id %>" rel="modal:open" class="btn btn-outline-danger send-email">Send Emails</a>
                       <div id="<%= log.id %>" class="modal modal-prompt text-center">
                         <% if(log.email_sent_date === null) { %>
@@ -63,13 +61,24 @@
                 <% }) %>
               </tbody>
             </table>
+            <div class="text-center mt-3">
+              <% if (page > 0) { %>
+                <a href="/import_logs?page=<%= page - 1 %>" class="btn btn-secondary">Previous</a>
+              <% } %>
+              <% if (logsCount === 10) { %>
+                <a href="/import_logs?page=<%= page + 1 %>" class="btn btn-primary">Next</a>
+              <% } %>
+            </div>
           </div>
         </div>
       </div>
     </section>
     <script>
       $(document).ready(() => {
-        $('#products').DataTable();
+        $('#products').DataTable({
+          paging: false,
+          info: false
+        });
       });
     </script>
   </body>

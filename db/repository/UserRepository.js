@@ -1,6 +1,5 @@
 const User = require('../model/User'),
-      objection = require('objection'),
-      Model = objection.Model,
+      Model = require('objection').Model,
       knex = require('../connection'),
       configs = require('../../config/configs');
 

@@ -6,11 +6,23 @@ const Product = require('../db/model/Product'),
 
 // Get all products.
 exports.getProducts = (req, res) => {
+  let page = Number(req.query.page);
+  if(!page) {
+    page = 0;
+  }
   knex
-    .select('id','product_shopify_id','name','discount_code')
+    .select(
+      'id',
+      'product_shopify_id',
+      'name',
+      'discount_code'
+    )
     .from('product')
+    .limit(10)
+    .offset(10 * page)
     .then((products) => {
-      res.render('products', { products });
+      const productCount = products.length;
+      res.render('products', { products, page, productCount });
     });
 };
 
@@ -20,25 +32,29 @@ Display detail page for a specific product
 Request:
 id - ID of Product Being Shown
 */
-exports.detailProduct = (req, res) => {
-  const id = req.body.id;
+// exports.detailProduct = (req, res) => {
+//   const id = req.body.id;
 
-  try {
-    request(`${shopifyUrl}/products/${id}.json`, (err, response, body) => {
-      const product = JSON.parse(body).product;
-      res.render('product-by-id', { product });
-    });
-  } catch (error) {
-    return res.end(error.message);
-  }
-};
+//   try {
+//     request(`${shopifyUrl}/products/${id}.json`, (err, response, body) => {
+//       const product = JSON.parse(body).product;
+//       res.render('product-by-id', { product });
+//     });
+//   } catch (error) {
+//     return res.end(error.message);
+//   }
+// };
 
-// Get Product Edit page
+// Get Create Product page
 exports.getCreateProduct = (req, res) => {
   const id = req.query.id;
   if(id) {
     knex
-      .select('product_shopify_id','name','discount_code')
+      .select(
+        'product_shopify_id',
+        'name',
+        'discount_code'
+      )
       .from('product')
       .where({ id })
       .then((product) => {
@@ -46,7 +62,8 @@ exports.getCreateProduct = (req, res) => {
         res.render('edit-product', { product, id });
       });
   } else {
-    res.render('edit-product');
+    const product = '';
+    res.render('edit-product', { product });
   }
 };
 
