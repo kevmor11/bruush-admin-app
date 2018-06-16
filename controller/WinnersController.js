@@ -2,7 +2,7 @@ const Winners = require('../db/model/Winner'),
       knexFile = require('../knexfile'),
       knex = require('knex')(knexFile);
 
-// Get Winners Page.
+// Get All Winners.
 exports.getWinners = (req, res) => {
   let page = Number(req.query.page);
   if(!page) {
@@ -30,7 +30,7 @@ exports.getWinners = (req, res) => {
     });
 };
 
-// Get Winners Page.
+// Get Winners of a certain CSV Log.
 exports.getWinnersByLog = (req, res) => {
   const id = req.params.id;
   knex('customer')

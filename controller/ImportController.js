@@ -3,11 +3,20 @@ const Import = require('../db/model/Import'),
       knexFile = require('../knexfile'),
       knex = require('knex')(knexFile);
 
-// Get Winners Page.
+// Get Import Upload Page.
 exports.getImport = (req, res) => {
   res.render('import');
 };
 
+/**
+Post info to import a CSV Log
+
+Request:
+csvFile - CSV File contents
+productID - Shopify ID of Product belonging to CSV Log being created
+discount_code - Discount Code of Product belonging to CSV Log being created
+
+*/
 exports.postImport = (req, res) => {
   const csvFile = req.file.buffer,
         productID = req.body.product,

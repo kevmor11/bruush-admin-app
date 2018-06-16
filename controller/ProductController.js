@@ -45,7 +45,12 @@ id - ID of Product Being Shown
 //   }
 // };
 
-// Get Create Product page
+/**
+Get Create Product page
+
+Request:
+id - ID of Product being Edited, if one exists
+*/
 exports.getCreateProduct = (req, res) => {
   const id = req.query.id;
   if(id) {
@@ -67,7 +72,14 @@ exports.getCreateProduct = (req, res) => {
   }
 };
 
-// Post info to create a product
+/**
+Post info to create a product
+
+Request:
+name - Name of Product being created
+product_shopify_id - Shopify ID of Product being created
+discount_code - Discount Code of Product being created
+*/
 exports.postCreateProduct = (req, res) => {
   const name = req.body.name,
         product_shopify_id = req.body.productid,
@@ -86,7 +98,16 @@ exports.postCreateProduct = (req, res) => {
     });
 };
 
-// Post info to update a product
+/**
+Post info to update a product
+
+Request:
+name - Name of Product being updated
+product_shopify_id - Shopify ID of Product being updated
+discount_code - Discount Code of Product being updated
+id - ID of Product being updated
+
+*/
 exports.postUpdateProduct = (req, res) => {
   const name = req.body.name,
         product_shopify_id = req.body.productid,
