@@ -1,8 +1,6 @@
-const Product = require('../db/model/Product'),
+const ProductRepository = require('../db/repository/ProductRepository'),
       shopifyUrl = require('../constants/ShopifyConstants').baseUrl,
-      request = require('request'),
-      knexFile = require('../knexfile'),
-      knex = require('knex')(knexFile);
+      request = require('request');
 
 // Get all products.
 exports.getProducts = (req, res) => {
@@ -10,20 +8,11 @@ exports.getProducts = (req, res) => {
   if(!page) {
     page = 0;
   }
-  knex
-    .select(
-      'id',
-      'product_shopify_id',
-      'name',
-      'discount_code'
-    )
-    .from('product')
-    .limit(10)
-    .offset(10 * page)
-    .then((products) => {
-      const productCount = products.length;
-      res.render('products', { products, page, productCount });
-    });
+  ProductRepository.listProducts(page).then(products => {
+    products = products.results;
+    const productCount = products.length;
+    res.render('products', { products, page, productCount });
+  });
 };
 
 /**
@@ -56,18 +45,11 @@ exports.getCreateProduct = (req, res) => {
   let title = '';
 
   if(id) {
-    knex('product')
-      .select(
-        'product_shopify_id',
-        'name',
-        'discount_code'
-      )
-      .where({ id })
-      .then((product) => {
-        product = product[0];
-        title = 'Edit';
-        res.render('edit-product', { product, id, title });
-      });
+    ProductRepository.listProductById(id).then(product => {
+      product = product[0];
+      title = 'Edit';
+      res.render('edit-product', { product, id, title });
+    });
   } else {
     const product = '';
     title = 'Add';
@@ -88,17 +70,12 @@ exports.postCreateProduct = (req, res) => {
         product_shopify_id = req.body.productid,
         discount_code = req.body.discountcode;
 
-  knex('product')
-    .insert([{
-      name,
-      product_shopify_id,
-      discount_code
-    }])
-    .then((result) => {
-      if(result) {
-        res.render('success', { title: 'Product Uploaded' });
-      }
-    });
+  ProductRepository.createProduct(name, product_shopify_id, discount_code).then(product => {
+    product = product[0];
+    if(product) {
+      res.render('success', { title: 'Product Uploaded' });
+    }
+  });
 };
 
 /**
@@ -117,16 +94,9 @@ exports.postUpdateProduct = (req, res) => {
         discount_code = req.body.discountcode,
         id = req.body.id;
 
-  knex('product')
-    .where({ id })
-    .update({
-      name,
-      product_shopify_id,
-      discount_code
-    })
-    .then((result) => {
-      if(result) {
-        res.render('success', { title: `Product ${name} Updated` });
-      }
-    });
+  ProductRepository.updateProduct(id, name, product_shopify_id, discount_code).then(product => {
+    if(product) {
+      res.render('success', { title: `Product ${name} Updated` });
+    }
+  });
 };

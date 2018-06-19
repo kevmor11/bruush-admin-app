@@ -75,11 +75,11 @@ cron.schedule('0 8 * * *', () => {
   knex('customer')
     .select('id','email','discount_code')
     .where({ email_to_be_sent: 1 })
-    .then((customers) => {
+    .then(customers => {
       customers.forEach((customer) => {
         // TODO customize emails
         var sentSuccessfully = sendMail(customer.email, 'Hello', '<h1>Hello, World</h1>');
-        var isSent = new Promise((resolve) => {
+        var isSent = new Promise(resolve => {
           resolve(sentSuccessfully);
         });
         isSent.then(() => {
