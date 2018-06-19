@@ -8,14 +8,16 @@ const express = require('express'),
       https = require('https'),
       fs = require('fs'),
       passport = require('passport'),
+      cron = require('node-cron'),
+      knexFile = require('./knexfile'),
+      knex = require('knex')(knexFile),
       LocalStrategy = require('passport-local').Strategy,
       connection = require('./db/connection'),
       sendMail = require('./util/MailUtil'),
-      isLoggedIn = require('./util/isLoggedIn'),
-      passportConnection = require('./passport.js');
+      isLoggedIn = require('./util/isLoggedIn');
 
 // Knex config
-const knex = Knex({
+const knexConfig = Knex({
   client: 'mysql',
   useNullAsDefault: true,
   connection: {
@@ -23,7 +25,7 @@ const knex = Knex({
   }
 });
 
-Model.knex(knex);
+Model.knex(knexConfig);
 
 // Setting view engine and middleware
 app.set('views', path.join(__dirname, 'view'))
@@ -68,6 +70,33 @@ app.use('/login', login)
 //     });
 //   }));
 
+cron.schedule('0 8 * * *', () => {
+// cron.schedule('* * * * *', () => {
+  knex('customer')
+    .select('id','email','discount_code')
+    .where({ email_to_be_sent: 1 })
+    .then((customers) => {
+      customers.forEach((customer) => {
+        // TODO customize emails
+        var sentSuccessfully = sendMail(customer.email, 'Hello', '<h1>Hello, World</h1>');
+        var isSent = new Promise((resolve) => {
+          resolve(sentSuccessfully);
+        });
+        isSent.then(() => {
+          knex('customer')
+            .where({ id: customer.id })
+            .update({
+              email_has_been_sent: 1,
+              email_to_be_sent: 0,
+              email_sent_date: new Date()
+            })
+            .then(() => {
+              console.log("Missed emails were resent.");
+            })
+        })
+      })
+    })
+});
 
 // app.get('/', isLoggedIn);
 app.get('/', (req, res) => {
@@ -98,16 +127,16 @@ app.use((req, res) => {
 // I've done this because when I try to access localhost:3000 in Chrome,
   // it automically tries to serve localhost:3000 over https but it cannot without
   // these certificates
-const certOptions = {
-  key: fs.readFileSync(path.resolve('./server.key')),
-  cert: fs.readFileSync(path.resolve('./server.crt'))
-};
+// const certOptions = {
+//   key: fs.readFileSync(path.resolve('./server.key')),
+//   cert: fs.readFileSync(path.resolve('./server.crt'))
+// };
 
-https.createServer(certOptions, app).listen(process.env.PORT, () => {
-  console.log('Example app listening on port 3000!');
-});
-
-// We can switch back to this implementation prior to production
-// app.listen(process.env.PORT, () => {
+// https.createServer(certOptions, app).listen(process.env.PORT, () => {
 //   console.log('Example app listening on port 3000!');
 // });
+
+// We can switch back to this implementation prior to production
+app.listen(process.env.PORT, () => {
+  console.log('Example app listening on port 3000!');
+});

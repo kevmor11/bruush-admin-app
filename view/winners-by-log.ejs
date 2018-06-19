@@ -30,9 +30,9 @@
                     <td><%= winner.name %></td>
                     <td><%= winner.discount_code %></td>
                     <% if(winner.email_sent_date === null) { %>
-                      <td>Not Yet Sent</td>
+                      <td>Not Sent Yet</td>
                     <% } else { %>
-                      <td><%= winner.email_sent_date %></td>
+                      <td><%= winner.email_sent_date.toString().substring(0,15) %></td>
                     <% } %>
                   </tr>
                 <% }) %>

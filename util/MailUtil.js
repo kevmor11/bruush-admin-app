@@ -15,12 +15,12 @@ let transporter = nodemailer.createTransport({
 });
 
 // send some mail
-module.exports = (to, subject, text) => {
+module.exports = (to, subject, html) => {
   transporter.sendMail({
     from,
     to,
     subject,
-    text
+    html
   }, (err, info) => {
     if (err) {
       console.log("Error: ", err);

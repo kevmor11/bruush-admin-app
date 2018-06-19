@@ -14,7 +14,7 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Batch Date</th>
+                  <th>Import Date</th>
                   <th># of Winners</th>
                   <th>Product Name</th>
                   <th>Discount Code</th>
@@ -27,7 +27,7 @@
                 <% logs.forEach((log) => { %>
                   <tr>
                     <th><%= log.id %></th>
-                    <td><%= log.created_at.toString().substring(0,25) %></td>
+                    <td><%= log.created_at.toString().substring(0,21) %></td>
                     <td><%= log.num_winners %></td>
                     <td><%= log.name %></td>
                     <td><%= log.discount_code %></td>
@@ -41,17 +41,17 @@
                     <% if(log.email_sent_date === null) { %>
                       <td>Not Sent Yet</td>
                     <% } else { %>
-                      <td><%= log.email_sent_date %></td>
+                      <td><%= log.email_sent_date.toString().substring(0,15) %></td>
                     <% } %>
 
                     <td>
-                      <a href="/winners_by_log/<%= log.id %>" class="btn btn-primary"><i class="fas fa-search"></i> View Winners</a>
-                      <a href="#<%= log.id %>" rel="modal:open" class="btn btn-outline-danger send-email"><i class="far fa-envelope"></i> Send Emails</a>
+                      <a href="/winners_by_log/<%= log.id %>" class="btn btn-primary mb-1"><i class="fas fa-search"></i> View Winners</a>
+                      <a href="#<%= log.id %>" rel="modal:open" class="btn btn-outline-danger mb-1"><i class="far fa-envelope"></i> Send Emails</a>
                       <div id="<%= log.id %>" class="modal modal-prompt text-center">
                         <% if(log.email_sent_date === null) { %>
                           <h5 class="messsage mb-5">Do you want to send emails to all winners?</h5>
                         <% } else { %>
-                          <h5 class="messsage mb-5">You have sent this already. Do you want to re-send the emails to all the winners?</h5>
+                          <h5 class="messsage mb-5">You have sent this already.<br><br>Do you want to re-send the emails to all the winners?</h5>
                         <% } %>
                         <form action="/send_mail" method="post" class="d-inline">
                           <input type="hidden" value="<%= log.id %>" name="logid">

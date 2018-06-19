@@ -6,10 +6,7 @@ const knexFile = require('../knexfile'),
 // Get Logs Page.
 exports.sendMailWinners = (req, res) => {
   const csv_log_id = req.body.logid;
-  // TODO
-    // 2. update time that email was sent for csv_log and customer
-    // 5. run a cron-job in app.js that loops through all customers that need emails sent that have not been sent yet
-    // 6. send remaining emails
+
   knex('customer')
     .select(
       'id',
@@ -23,32 +20,33 @@ exports.sendMailWinners = (req, res) => {
         .update({ email_to_be_sent: 1 })
         .then(() => {
           customers.forEach((customer, i) => {
-            var sentSuccessfully = sendMail(customer.email,'Hello','Testing');
-            console.log("SENT", sentSuccessfully);
-            // TODO sentSuccessfully is not finished by the time the it enters the next block so it returns undefined
-            if(sentSuccessfully) {
+            // TODO customize emails
+            var sentSuccessfully = sendMail(customer.email,'Hello','<h1>Hello, World</h1>');
+            var isSent = new Promise((resolve) => {
+              resolve(sentSuccessfully);
+            });
+
+            isSent.then(() => {
               knex('customer')
                 .where({ id: customer.id })
                 .update({
                   email_has_been_sent: 1,
                   email_to_be_sent: 0,
-                  email_sent_date: knex.fn.now()
+                  email_sent_date: new Date()
                 })
                 .then(() => {
-                  if(i === (customers.length -1)) {
+                  if(i === (customers.length - 1)) {
                     knex('csv_log')
                       .where({ id: csv_log_id })
                       .update({
-                        email_sent_date: knex.fn.now()
+                        email_sent_date: new Date()
                       })
                       .then(() => {
-                          res.render('success', { title: 'Emails Sent' });
+                        res.render('success', { title: 'Emails Sent' });
                       })
                   }
                 })
-            } else {
-              console.log("An Email Was Not Sent");
-            }
+            })
           })
         })
     });
