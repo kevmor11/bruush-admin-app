@@ -53,22 +53,25 @@ id - ID of Product being Edited, if one exists
 */
 exports.getCreateProduct = (req, res) => {
   const id = req.query.id;
+  let title = '';
+
   if(id) {
-    knex
+    knex('product')
       .select(
         'product_shopify_id',
         'name',
         'discount_code'
       )
-      .from('product')
       .where({ id })
       .then((product) => {
         product = product[0];
-        res.render('edit-product', { product, id });
+        title = 'Edit';
+        res.render('edit-product', { product, id, title });
       });
   } else {
     const product = '';
-    res.render('edit-product', { product });
+    title = 'Add';
+    res.render('edit-product', { product, title });
   }
 };
 

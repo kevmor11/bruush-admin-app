@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-6 offset-4 mt-2">
-            <h1 class="ml-5 pl-5">Import CSV</h1>
+            <h1 class="ml-5 pl-5"><i class="fas fa-upload"></i> Import CSV</h1>
             <form class="mt-4" action="/import_csv/upload" method="POST" enctype="multipart/form-data" data-parsley-validate>
               <div class="input-group">
                 <label class="input-group-btn mb-0">
@@ -20,11 +20,9 @@
                 <input id="reader" type="text" class="form-control field" readonly="">
               </div>
               <select class="product mt-4 form-control" name="product">
-                <!-- TODO dynamically get product names and IDs -->
-                <option value="1">Product 1</option>
-                <option value="2">Product 2</option>
-                <option value="3">Product 3</option>
-                <option value="4">Product 4</option>
+                <% products.forEach((product) => { %>
+                  <option value="<%= product.product_shopify_id %>"><%= product.name %></option>
+                <% }) %>
               </select>
               <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
             </form>

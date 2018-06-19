@@ -44,6 +44,7 @@ const login = require('./routes/login'),
       winners = require('./routes/winners'),
       winnersByLog = require('./routes/winners-by-log'),
       products = require('./routes/products'),
+      mailer = require('./routes/send-mail'),
       editProduct = require('./routes/edit-product');
 
 app.use('/login', login)
@@ -54,6 +55,7 @@ app.use('/login', login)
    .use('/winners', winners)
    .use('/winners_by_log', winnersByLog)
    .use('/products', products)
+   .use('/send_mail', mailer)
    .use('/edit_product', editProduct);
 
 // passport.use(new Strategy(
