@@ -98,16 +98,16 @@ app.use((req, res) => {
 // I've done this because when I try to access localhost:3000 in Chrome,
   // it automically tries to serve localhost:3000 over https but it cannot without
   // these certificates
-// const certOptions = {
-//   key: fs.readFileSync(path.resolve('./server.key')),
-//   cert: fs.readFileSync(path.resolve('./server.crt'))
-// };
+const certOptions = {
+  key: fs.readFileSync(path.resolve('./server.key')),
+  cert: fs.readFileSync(path.resolve('./server.crt'))
+};
 
-// https.createServer(certOptions, app).listen(process.env.PORT, () => {
-//   console.log('Example app listening on port 3000!');
-// });
-
-// We can switch back to this implementation prior to production
-app.listen(process.env.PORT, () => {
+https.createServer(certOptions, app).listen(process.env.PORT, () => {
   console.log('Example app listening on port 3000!');
 });
+
+// We can switch back to this implementation prior to production
+// app.listen(process.env.PORT, () => {
+//   console.log('Example app listening on port 3000!');
+// });
