@@ -33,13 +33,15 @@ exports.sendMailWinners = (req, res) => {
                   email_has_been_sent: 1,
                   email_to_be_sent: 0,
                   email_sent_date: knex.fn.now()
-                }).then(() => {
+                })
+                .then(() => {
                   if(i === (customers.length -1)) {
                     knex('csv_log')
                       .where({ id: csv_log_id })
                       .update({
                         email_sent_date: knex.fn.now()
-                      }).then(() => {
+                      })
+                      .then(() => {
                           res.render('success', { title: 'Emails Sent' });
                       })
                   }

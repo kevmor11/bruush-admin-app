@@ -35,11 +35,6 @@ exports.getWinnersByLog = (req, res) => {
   const id = req.params.id;
   knex('customer')
     .join(
-      'csv_log',
-      'customer.csv_log_id',
-      'csv_log.id'
-    )
-    .join(
       'product',
       'customer.product_id',
       'product.product_shopify_id'
@@ -52,7 +47,7 @@ exports.getWinnersByLog = (req, res) => {
       'customer.discount_code',
       'customer.email_sent_date'
     )
-    .where('csv_log.id', '=', id)
+    .where({ csv_log_id: id})
     .then((winners) => {
       res.render('winners-by-log', { winners, id });
     });
