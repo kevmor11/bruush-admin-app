@@ -1,7 +1,5 @@
 const express = require('express'),
       app = express(),
-      { Model } = require('objection'),
-      Knex = require('knex'),
       compression = require('compression'),
       path = require('path'),
       bodyParser = require('body-parser'),
