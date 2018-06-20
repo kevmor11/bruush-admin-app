@@ -16,7 +16,6 @@ const LoginController = require('../controller/LoginController'),
   LoginController.postLogin
 )
 
-.get('/hello', LoginController.hello)
-.get('/users/page/:page', LoginController.listUsers)
+.get('/hello', LoginController.hello);
 
 module.exports = router;

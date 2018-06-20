@@ -13,16 +13,16 @@ const express = require('express'),
       CronUtil = require('./util/CronUtil'),
       isLoggedIn = require('./util/isLoggedIn');
 
-// Knex config
-const knexConfig = Knex({
-  client: 'mysql',
-  useNullAsDefault: true,
-  connection: {
-    filename: './knexfile'
-  }
-});
+// // Knex config
+// const knexConfig = Knex({
+//   client: 'mysql',
+//   useNullAsDefault: true,
+//   connection: {
+//     filename: './knexfile'
+//   }
+// });
 
-Model.knex(knexConfig);
+// Model.knex(knexConfig);
 
 // Setting view engine and middleware
 app.set('views', path.join(__dirname, 'view'))
@@ -96,16 +96,16 @@ app.use((req, res) => {
 // I've done this because when I try to access localhost:3000 in Chrome,
   // it automically tries to serve localhost:3000 over https but it cannot without
   // these certificates
-// const certOptions = {
-//   key: fs.readFileSync(path.resolve('./server.key')),
-//   cert: fs.readFileSync(path.resolve('./server.crt'))
-// };
+const certOptions = {
+  key: fs.readFileSync(path.resolve('./server.key')),
+  cert: fs.readFileSync(path.resolve('./server.crt'))
+};
 
-// https.createServer(certOptions, app).listen(process.env.PORT, () => {
-//   console.log('Example app listening on port 3000!');
-// });
-
-// We can switch back to this implementation prior to production
-app.listen(process.env.PORT, () => {
+https.createServer(certOptions, app).listen(process.env.PORT, () => {
   console.log('Example app listening on port 3000!');
 });
+
+// We can switch back to this implementation prior to production
+// app.listen(process.env.PORT, () => {
+//   console.log('Example app listening on port 3000!');
+// });

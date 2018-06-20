@@ -1,7 +1,5 @@
 const cron = require('node-cron'),
       WinnerRepository = require('../db/repository/WinnerRepository'),
-      knexFile = require('../knexfile'),
-      knex = require('knex')(knexFile),
       sendMail = require('./MailUtil');
 
 module.exports = () => {

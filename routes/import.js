@@ -1,7 +1,6 @@
 const ImportController = require('../controller/ImportController'),
       isLoggedIn = require('../util/isLoggedIn'),
-      multer = require('multer'),
-      upload = multer();
+      upload = require('multer')(),
       router = require('express').Router()
 
 // Get all discount codes
