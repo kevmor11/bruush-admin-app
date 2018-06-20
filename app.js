@@ -8,12 +8,8 @@ const express = require('express'),
       https = require('https'),
       fs = require('fs'),
       passport = require('passport'),
-      cron = require('node-cron'),
-      knexFile = require('./knexfile'),
-      knex = require('knex')(knexFile),
       LocalStrategy = require('passport-local').Strategy,
       connection = require('./db/connection'),
-      sendMail = require('./util/MailUtil'),
       CronUtil = require('./util/CronUtil'),
       isLoggedIn = require('./util/isLoggedIn');
 
