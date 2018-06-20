@@ -5,7 +5,7 @@ const ProductRepository = require('../db/repository/ProductRepository'),
 
 // Get Import Upload Page.
 exports.getImport = (req, res) => {
-  ProductRepository.listProducts(0).then(products => {
+  ProductRepository.listProducts().then(products => {
     products = products.results;
     res.render('import', { products });
   });

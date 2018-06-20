@@ -5,7 +5,7 @@
   </head>
   <body>
     <% include ../partials/_header %>
-    <a href="/edit_product" class="btn btn-primary position-absolute add-product"><i class="fas fa-plus-circle"></i> Add Product</a>
+    <a href="/products/edit" class="btn btn-primary position-absolute add-product"><i class="fas fa-plus-circle"></i> Add Product</a>
     <section class="product-table mt-5 pb-5">
       <div class="container-fluid">
         <div class="row">
@@ -28,7 +28,7 @@
                     <td><%= product.product_shopify_id %></td>
                     <td><%= product.name %></td>
                     <td><%= product.discount_code %></td>
-                    <td><a href="/edit_product?id=<%= product.id %>" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</a></td>
+                    <td><a href="/products/edit?id=<%= product.id %>" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</a></td>
                   </tr>
                 <% }) %>
               </tbody>

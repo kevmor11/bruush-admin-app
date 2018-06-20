@@ -6,7 +6,7 @@ const Winner = require('../model/Winner'),
 Model.knex(knex);
 
 module.exports = {
-  listWinners: (page) => {
+  listWinners: (page = 0) => {
     return Winner
     .query()
     .join(
@@ -26,7 +26,7 @@ module.exports = {
 	  .page(page, configs.pageSize);
   },
 
-  listWinnersByLog: (id, page) => {
+  listWinnersByLog: (id, page = 0) => {
     return Winner
     .query()
     .join(

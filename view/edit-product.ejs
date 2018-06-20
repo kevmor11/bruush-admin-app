@@ -11,7 +11,7 @@
           <div class="col-6 offset-4 mt-2">
             <h1 class="ml-5 pl-5"><%= title %> Product</h1>
             <% if(product) { %>
-              <form class="mt-4" action="/edit_product/update" method="POST" data-parsley-validate>
+              <form class="mt-4" action="/products/edit/update" method="POST" data-parsley-validate>
                 <input type="hidden" value="<%= id %>" name="id">
                 <div class="input-group mb-3">
                   <label class="edit-product" for="name">Name:</label>
@@ -28,7 +28,7 @@
                 <button type="submit" class="submit-prod mt-4 btn btn-primary">Update</button>
               </form>
             <% } else { %>
-              <form class="mt-4" action="/edit_product/upload" method="POST" data-parsley-validate>
+              <form class="mt-4" action="/products/edit/upload" method="POST" data-parsley-validate>
                 <div class="input-group mb-3">
                   <label class="edit-product" for="name">Name:</label>
                   <input type="text" class="text-input" name="name" required>

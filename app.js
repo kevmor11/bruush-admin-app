@@ -14,6 +14,7 @@ const express = require('express'),
       LocalStrategy = require('passport-local').Strategy,
       connection = require('./db/connection'),
       sendMail = require('./util/MailUtil'),
+      CronUtil = require('./util/CronUtil'),
       isLoggedIn = require('./util/isLoggedIn');
 
 // Knex config
@@ -46,8 +47,7 @@ const login = require('./routes/login'),
       winners = require('./routes/winners'),
       winnersByLog = require('./routes/winners-by-log'),
       products = require('./routes/products'),
-      mailer = require('./routes/send-mail'),
-      editProduct = require('./routes/edit-product');
+      mailer = require('./routes/send-mail');
 
 app.use('/login', login)
    .use('/logout', logout)
@@ -57,8 +57,7 @@ app.use('/login', login)
    .use('/winners', winners)
    .use('/winners_by_log', winnersByLog)
    .use('/products', products)
-   .use('/send_mail', mailer)
-   .use('/edit_product', editProduct);
+   .use('/send_mail', mailer);
 
 // passport.use(new Strategy(
 //   (username, password, cb) => {
@@ -70,33 +69,7 @@ app.use('/login', login)
 //     });
 //   }));
 
-cron.schedule('0 8 * * *', () => {
-// cron.schedule('* * * * *', () => {
-  knex('customer')
-    .select('id','email','discount_code')
-    .where({ email_to_be_sent: 1 })
-    .then(customers => {
-      customers.forEach((customer) => {
-        // TODO customize emails
-        var sentSuccessfully = sendMail(customer.email, 'Hello', '<h1>Hello, World</h1>');
-        var isSent = new Promise(resolve => {
-          resolve(sentSuccessfully);
-        });
-        isSent.then(() => {
-          knex('customer')
-            .where({ id: customer.id })
-            .update({
-              email_has_been_sent: 1,
-              email_to_be_sent: 0,
-              email_sent_date: new Date()
-            })
-            .then(() => {
-              console.log("Missed emails were resent.");
-            })
-        })
-      })
-    })
-});
+CronUtil();
 
 // app.get('/', isLoggedIn);
 app.get('/', (req, res) => {

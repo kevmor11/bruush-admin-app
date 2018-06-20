@@ -7,7 +7,7 @@ const Log = require('../model/Log'),
 Model.knex(knex);
 
 module.exports = {
-  listLogs: (page) => {
+  listLogs: (page = 0) => {
     return Log
     .query()
     .join(

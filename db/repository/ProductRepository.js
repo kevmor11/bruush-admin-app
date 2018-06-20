@@ -6,7 +6,7 @@ const Product = require('../model/Product'),
 Model.knex(knex);
 
 module.exports = {
-  listProducts: (page) => {
+  listProducts: (page = 0) => {
     return Product
     .query()
     .select(
