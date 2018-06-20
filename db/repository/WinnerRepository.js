@@ -47,6 +47,13 @@ module.exports = {
 	  .page(page, configs.pageSize);
   },
 
+  listWinnersToBeMailed: () => {
+    return Winner
+    .query()
+    .select('id','email','discount_code')
+    .where({ email_to_be_sent: 1 })
+  },
+
   createWinner: (email, signup_date, num_referrals, product_id, csv_log_id, discount_code) => {
     return Winner
     .query()
