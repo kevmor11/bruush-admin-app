@@ -37,7 +37,7 @@
     "build-css": "node-sass --include-path scss public/styles/input.scss public/styles/output.css",
     "watch-css": "nodemon -e scss -x \"npm run build-css\" ",
     "dev": "concurrently \"nodemon app.js\" \"npm run watch-css\" ",
-    "start": "node app.js"
+    "start": "knex migrate:latest && node app.js"
   },
   "author": "",
   "license": "ISC"
