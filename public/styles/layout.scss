@@ -34,3 +34,42 @@ select.product {
 button.submit-prod {
   margin-left: 150px;
 }
+
+a.add-product {
+  right: 220px;
+  top: 110px;
+  z-index: 2;
+}
+
+label.edit-product {
+  min-width: 145px;
+  text-align: right;
+}
+
+input.text-input {
+  border-radius: 3px;
+  width: 300px;
+  border: .5px solid lightgrey;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+
+div#products_wrapper {
+  width: 80%;
+}
+
+section.product-table {
+  padding-top: 30px;
+
+  table#products {
+    margin: 0 auto;
+  }
+
+}
+
+div.modal-prompt {
+  overflow: visible;
+  min-height: 200px;
+  padding-top: 50px;
+}

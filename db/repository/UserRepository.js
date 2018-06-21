@@ -1,6 +1,5 @@
 const User = require('../model/User'),
-      objection = require('objection'),
-      Model = objection.Model,
+      Model = require('objection').Model,
       knex = require('../connection'),
       configs = require('../../config/configs');
 
@@ -9,7 +8,8 @@ Model.knex(knex);
 module.exports = {
   getUserByUsername: (username) => {
   	return User
-	  .query()
+    .query()
+    .select('username', 'password')
 	  .where('username', '=', username)
   },
 
@@ -22,17 +22,4 @@ module.exports = {
 	  .page(page - 1, configs.pageSize);
   },
 
-/*
-  getById(id) {
-    return User.query()
-      .where('id', '=', id);
-  },
-  listByRetailerId(retailerId, page) {
-    return Client.query()
-      .where('retailerId', '=', retailerId)
-      .eager('[referral, source]')
-      .orderBy('firstName')
-      .page(page, Config.clientPageSize);
-  },
-*/
 }

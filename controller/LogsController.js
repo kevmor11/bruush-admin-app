@@ -1,11 +1,15 @@
-const Logs = require('../db/model/Logs');
+const LogsRepository = require('../db/repository/LogsRepository');
 
 // Get Logs Page.
 exports.getLogs = (req, res) => {
-  res.render('logs');
-};
+  let page = Number(req.query.page);
+  if(!page) {
+    page = 0;
+  }
 
-
-exports.postLogs = (req, res) => {
-
+  LogsRepository.listLogs(page).then(logs => {
+    logs = logs.results;
+    const logsCount = logs.length;
+    res.render('logs', { logs, page, logsCount });
+  });
 };

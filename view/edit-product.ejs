@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <% include ../partials/_head %>
+  <body>
+    <% include ../partials/_header %>
+    <section class="product mt-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 offset-4 mt-2">
+            <h1 class="ml-5 pl-5"><%= title %> Product</h1>
+            <% if(product) { %>
+              <form class="mt-4" action="/products/edit/update" method="POST" data-parsley-validate>
+                <input type="hidden" value="<%= id %>" name="id">
+                <div class="input-group mb-3">
+                  <label class="edit-product" for="name">Name:</label>
+                  <input type="text" class="text-input" name="name" value="<%= product.name %>" required>
+                </div>
+                <div class="input-group mb-3">
+                  <label class="edit-product" for="productid">Shopify Product ID:</label>
+                  <input type="text" class="text-input" name="productid" value="<%= product.product_shopify_id %>" required data-parsley-type="alphanum">
+                </div>
+                <div class="input-group mb-3">
+                  <label class="edit-product" for="discount-code">Discount Code:</label>
+                  <input type="text" class="text-input" name="discountcode" value="<%= product.discount_code %>" required data-parsley-type="alphanum">
+                </div>
+                <button type="submit" class="submit-prod mt-4 btn btn-primary">Update</button>
+              </form>
+            <% } else { %>
+              <form class="mt-4" action="/products/edit/upload" method="POST" data-parsley-validate>
+                <div class="input-group mb-3">
+                  <label class="edit-product" for="name">Name:</label>
+                  <input type="text" class="text-input" name="name" required>
+                </div>
+                <div class="input-group mb-3">
+                  <label class="edit-product" for="product-id">Shopify Product ID:</label>
+                  <input type="text" class="text-input" name="productid" required data-parsley-type="alphanum">
+                </div>
+                <div class="input-group mb-3">
+                  <label class="edit-product" for="discount-code">Discount Code:</label>
+                  <input type="text" class="text-input" name="discountcode" required data-parsley-type="alphanum">
+                </div>
+                <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
+              </form>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

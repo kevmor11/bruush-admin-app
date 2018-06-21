@@ -15,19 +15,21 @@ let transporter = nodemailer.createTransport({
 });
 
 // send some mail
-module.exports = (to, subject, message) => {
+module.exports = (to, subject, html) => {
   transporter.sendMail({
     from,
     to,
     subject,
-    text: message
+    html
   }, (err, info) => {
     if (err) {
       console.log("Error: ", err);
       console.log(info.envelope);
       console.log(info.messageId);
+      return false;
     } else {
       console.log("Nodemailer sent an email successfully!");
+      return true;
     }
   });
 };

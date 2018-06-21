@@ -1,29 +1,16 @@
 const express = require('express'),
       app = express(),
-      { Model } = require('objection'),
-      Knex = require('knex'),
       compression = require('compression'),
       path = require('path'),
       bodyParser = require('body-parser'),
       https = require('https'),
       fs = require('fs'),
+      cookieSession = require("cookie-session"),
+      session = require("express-session"),
       passport = require('passport'),
-      LocalStrategy = require('passport-local').Strategy,
-      connection = require('./db/connection'),
-      sendMail = require('./util/MailUtil'),
-      isLoggedIn = require('./util/isLoggedIn'),
-      passportConnection = require('./passport.js');
-
-// Knex config
-const knex = Knex({
-  client: 'mysql',
-  useNullAsDefault: true,
-  connection: {
-    filename: './knexfile'
-  }
-});
-
-Model.knex(knex);
+      // Strategy = require('passport-local').Strategy,
+      CronUtil = require('./util/CronUtil'),
+      isLoggedIn = require('./util/isLoggedIn');
 
 // Setting view engine and middleware
 app.set('views', path.join(__dirname, 'view'))
@@ -32,8 +19,16 @@ app.set('views', path.join(__dirname, 'view'))
    .use(bodyParser.json())
    .use(bodyParser.urlencoded({ extended: false }))
    .use(express.static(path.join(__dirname, './public')))
-   .use(passport.initialize())
-   .use(passport.session());
+   .use(cookieSession({
+     name: 'session',
+     keys: ['user_id'],
+     // Cookie Options (session cookies expire after 24 hours)
+     maxAge: 24 * 60 * 60 * 1000 // 24 hours
+   }))
+    // .use(require('cookie-parser')())
+    // .use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
+    // .use(passport.initialize())
+    // .use(passport.session());
 
 // Routes
 const login = require('./routes/login'),
@@ -42,7 +37,9 @@ const login = require('./routes/login'),
       imports = require('./routes/import'),
       logs = require('./routes/logs'),
       winners = require('./routes/winners'),
-      products = require('./routes/products');
+      winnersByLog = require('./routes/winners-by-log'),
+      products = require('./routes/products'),
+      mailer = require('./routes/send-mail');
 
 app.use('/login', login)
    .use('/logout', logout)
@@ -50,20 +47,35 @@ app.use('/login', login)
    .use('/import_csv', imports)
    .use('/logs', logs)
    .use('/winners', winners)
-   .use('/products', products);
+   .use('/winners_by_log', winnersByLog)
+   .use('/products', products)
+   .use('/send_mail', mailer);
 
-// passport.use(new Strategy(
-//   (username, password, cb) => {
-//     db.users.findByUsername(username, function(err, user) {
-//       if (err) { return cb(err); }
-//       if (!user) { return cb(null, false); }
-//       if (user.password != password) { return cb(null, false); }
-//       return cb(null, user);
-//     });
-//   }));
+CronUtil();
 
+app.get('/', isLoggedIn, (req, res) => {
+  res.redirect('/dashboard');
+});
 
-app.get('/', isLoggedIn);
+// catch 404 and give response
+app.use((req, res) => {
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('error', { url: req.url });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text. send()
+  res.type('txt').send('Page Not found');
+});
 
 // Using custom ssl certificates in order to serve localhost over https
 // I've done this because when I try to access localhost:3000 in Chrome,

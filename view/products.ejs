@@ -1,22 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <% include ../partials/_head %>
-  </head>
+  <% include ../partials/_head %>
   <body>
     <% include ../partials/_header %>
-    <section class="product mt-5">
+    <a href="/products/edit" class="btn btn-primary position-absolute add-product"><i class="fas fa-plus-circle"></i> Add Product</a>
+    <section class="product-table mt-5 pb-5">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12 text-center mt-2">
-            <form action="/products/id" method="post">
-              <label for="id">Enter an ID (ex: 1462122774646)</label><br>
-              <input type="text" name="id"><br>
-              <button class="btn btn-primary mt-2" type="submit">Get Product By ID</button>
-            </form>
+          <div class="col-12 mt-2">
+            <h1 class="text-center md-2"><i class="fas fa-cube"></i> Products</h1>
+            <table id="products" class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Shopify Product ID</th>
+                  <th>Name</th>
+                  <th>Discount Code</th>
+                  <th>Edit</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% products.forEach((product) => { %>
+                  <tr>
+                    <th><%= product.id %></th>
+                    <td><%= product.product_shopify_id %></td>
+                    <td><%= product.name %></td>
+                    <td><%= product.discount_code %></td>
+                    <td><a href="/products/edit?id=<%= product.id %>" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</a></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+            <div class="text-center mt-3">
+              <% if (page > 0) { %>
+                <a href="/products?page=<%= page - 1 %>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></a>
+              <% } %>
+              <% if (productCount === 10) { %>
+                <a href="/products?page=<%= page + 1 %>" class="btn btn-primary"><i class="fas fa-arrow-right"></i></a>
+              <% } %>
+            </div>
           </div>
         </div>
       </div>
     </section>
+    <script>
+      $(document).ready(() => {
+        $('#products').DataTable({
+          paging: false,
+          info: false
+        });
+      });
+    </script>
   </body>
 </html>

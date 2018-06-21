@@ -2,8 +2,12 @@ const ProductController = require('../controller/ProductController'),
       isLoggedIn = require('../util/isLoggedIn'),
       router = require('express').Router()
 
-.get('/', isLoggedIn, ProductController.getProductById)
+.get('/', isLoggedIn, ProductController.getProducts)
 
-.post('/id', ProductController.detailProduct);
+.get('/edit/', isLoggedIn, ProductController.getCreateProduct)
+
+.post('/edit/upload', ProductController.postCreateProduct)
+
+.post('/edit/update', ProductController.postUpdateProduct);
 
 module.exports = router;

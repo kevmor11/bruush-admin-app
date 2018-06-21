@@ -1,13 +1,13 @@
-require('dotenv').load();
+require('dotenv').config();
 
-module.exports = require('knex')({
+module.exports = {
   client: 'mysql',
   connection: {
     host : process.env.DATABASE_HOST,
     user : process.env.DATABASE_USER,
     password : process.env.DATABASE_PASSWORD,
     database : process.env.DATABASE_NAME,
-    timezone: 'utc',
+    timezone : 'utc',
   },
   pool: {
     min: 2,
@@ -16,4 +16,4 @@ module.exports = require('knex')({
   migrations: {
     tableName: 'migrations'
   }
-});
+};

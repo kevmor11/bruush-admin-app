@@ -1,8 +1,8 @@
-const WinnersController = require('../controller/WinnersController'),
+const MailerController = require('../controller/MailerController'),
       isLoggedIn = require('../util/isLoggedIn'),
       router = require('express').Router()
 
 // Get all discount codes
-.get('/', isLoggedIn, WinnersController.getWinners)
+.post('/', isLoggedIn, MailerController.sendMailWinners);
 
 module.exports = router;

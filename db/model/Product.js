@@ -1,10 +1,22 @@
 const { Model } = require('objection');
 
-class Products extends Model {
+class Product extends Model {
   static get tableName() {
-    return 'products';
+    return 'product';
   }
 
+  // static get jsonSchema () {
+  //   return {
+  //     type: 'object',
+  //     required: ['username', 'password'],
+
+  //     properties: {
+  //       id: {type: 'integer'},
+  //       username: {type: 'string', minLength: 1, maxLength: 255},
+  //       password: {type: 'string', minLength: 6, maxLength: 255},
+  //     }
+  //   };
+  // }
 }
 
-module.exports = Products;
+module.exports = Product;
