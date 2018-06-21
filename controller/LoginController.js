@@ -3,7 +3,7 @@ const UserRepository = require('../db/repository/UserRepository'),
 
 // Get Login Page.
 exports.getLogin = (req, res) => {
-  if(req.user) {
+  if(req.session.user_id) {
     res.redirect('/dashboard');
   } else {
     res.render('login');
@@ -33,7 +33,7 @@ exports.postLogin = (req, res) => {
         }
       }
 
-      const authenticatedUser = authenticated(req.body.username, req.body.password);
+      const authenticatedUser = authenticated(username, password);
 
       if (authenticatedUser) {
         req.session["user_id"] = 1;
@@ -55,10 +55,3 @@ exports.logout = (req, res) => {
   res.redirect('/login');
 };
 
-exports.hello = (req, res) => {
-  UserRepository.getUserByUsername('kenneth').then(results => {
-  	console.log(results);
-  });
-
-  res.render('login');
-};

@@ -7,8 +7,9 @@ const express = require('express'),
       fs = require('fs'),
       cookieSession = require("cookie-session"),
       // passport = require('passport'),
-      // LocalStrategy = require('passport-local').Strategy,
+      // Strategy = require('passport-local').Strategy,
       CronUtil = require('./util/CronUtil'),
+      // UserRepository = require('./db/repository/UserRepository'),
       isLoggedIn = require('./util/isLoggedIn');
 
 // Setting view engine and middleware
@@ -18,14 +19,16 @@ app.set('views', path.join(__dirname, 'view'))
    .use(bodyParser.json())
    .use(bodyParser.urlencoded({ extended: false }))
    .use(express.static(path.join(__dirname, './public')))
-  //  .use(passport.initialize())
-  //  .use(passport.session())
    .use(cookieSession({
-      name: 'session',
-      keys: ['user_id'],
-      // Cookie Options (session cookies expire after 24 hours)
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
-    }));
+     name: 'session',
+     keys: ['user_id'],
+     // Cookie Options (session cookies expire after 24 hours)
+     maxAge: 24 * 60 * 60 * 1000 // 24 hours
+   }))
+    // .use(require('cookie-parser')())
+    // .use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }))
+    // .use(passport.initialize())
+    // .use(passport.session());
 
 // Routes
 const login = require('./routes/login'),
@@ -48,22 +51,11 @@ app.use('/login', login)
    .use('/products', products)
    .use('/send_mail', mailer);
 
-// passport.use(new Strategy(
-//   (username, password, cb) => {
-//     db.users.findByUsername(username, function(err, user) {
-//       if (err) { return cb(err); }
-//       if (!user) { return cb(null, false); }
-//       if (user.password != password) { return cb(null, false); }
-//       return cb(null, user);
-//     });
-//   }));
-
 CronUtil();
 
-app.get('/', isLoggedIn);
-// app.get('/', (req, res) => {
-//   res.redirect('/dashboard');
-// });
+app.get('/', isLoggedIn, (req, res) => {
+  res.redirect('/dashboard');
+});
 
 // catch 404 and give response
 app.use((req, res) => {

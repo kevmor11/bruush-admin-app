@@ -7,15 +7,6 @@ const LoginController = require('../controller/LoginController'),
 .get('/', LoginController.getLogin)
 
 // Create a discount code
-.post('/',
-  // passport.authenticate('local', {
-  //   successRedirect: '/dashboard',
-  //   failureRedirect: '/login',
-  //   failureFlash: true
-  // })
-  LoginController.postLogin
-)
-
-.get('/hello', LoginController.hello);
+.post('/', LoginController.postLogin)
 
 module.exports = router;
