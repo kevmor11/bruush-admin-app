@@ -8,7 +8,8 @@ Model.knex(knex);
 module.exports = {
   getUserByUsername: (username) => {
   	return User
-	  .query()
+    .query()
+    .select('username', 'password')
 	  .where('username', '=', username)
   },
 

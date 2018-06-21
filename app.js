@@ -5,8 +5,9 @@ const express = require('express'),
       bodyParser = require('body-parser'),
       https = require('https'),
       fs = require('fs'),
-      passport = require('passport'),
-      LocalStrategy = require('passport-local').Strategy,
+      cookieSession = require("cookie-session"),
+      // passport = require('passport'),
+      // LocalStrategy = require('passport-local').Strategy,
       CronUtil = require('./util/CronUtil'),
       isLoggedIn = require('./util/isLoggedIn');
 
@@ -17,8 +18,14 @@ app.set('views', path.join(__dirname, 'view'))
    .use(bodyParser.json())
    .use(bodyParser.urlencoded({ extended: false }))
    .use(express.static(path.join(__dirname, './public')))
-   .use(passport.initialize())
-   .use(passport.session());
+  //  .use(passport.initialize())
+  //  .use(passport.session())
+   .use(cookieSession({
+      name: 'session',
+      keys: ['user_id'],
+      // Cookie Options (session cookies expire after 24 hours)
+      maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    }));
 
 // Routes
 const login = require('./routes/login'),
@@ -53,10 +60,10 @@ app.use('/login', login)
 
 CronUtil();
 
-// app.get('/', isLoggedIn);
-app.get('/', (req, res) => {
-  res.redirect('/dashboard');
-});
+app.get('/', isLoggedIn);
+// app.get('/', (req, res) => {
+//   res.redirect('/dashboard');
+// });
 
 // catch 404 and give response
 app.use((req, res) => {
@@ -78,20 +85,6 @@ app.use((req, res) => {
   res.type('txt').send('Page Not found');
 });
 
-// Using custom ssl certificates in order to serve localhost over https
-// I've done this because when I try to access localhost:3000 in Chrome,
-  // it automically tries to serve localhost:3000 over https but it cannot without
-  // these certificates
-const certOptions = {
-  key: fs.readFileSync(path.resolve('./server.key')),
-  cert: fs.readFileSync(path.resolve('./server.crt'))
-};
-
-https.createServer(certOptions, app).listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {
   console.log('Example app listening on port 3000!');
 });
-
-// We can switch back to this implementation prior to production
-// app.listen(process.env.PORT, () => {
-//   console.log('Example app listening on port 3000!');
-// });
