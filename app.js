@@ -6,10 +6,10 @@ const express = require('express'),
       https = require('https'),
       fs = require('fs'),
       cookieSession = require("cookie-session"),
-      // passport = require('passport'),
+      session = require("express-session"),
+      passport = require('passport'),
       // Strategy = require('passport-local').Strategy,
       CronUtil = require('./util/CronUtil'),
-      // UserRepository = require('./db/repository/UserRepository'),
       isLoggedIn = require('./util/isLoggedIn');
 
 // Setting view engine and middleware
@@ -77,6 +77,20 @@ app.use((req, res) => {
   res.type('txt').send('Page Not found');
 });
 
+// Using custom ssl certificates in order to serve localhost over https
+// I've done this because when I try to access localhost:3000 in Chrome,
+  // it automically tries to serve localhost:3000 over https but it cannot without
+  // these certificates
+// const certOptions = {
+//   key: fs.readFileSync(path.resolve('./server.key')),
+//   cert: fs.readFileSync(path.resolve('./server.crt'))
+// };
+
+// https.createServer(certOptions, app).listen(process.env.PORT, () => {
+//   console.log('Example app listening on port 3000!');
+// });
+
+// We can switch back to this implementation prior to production
 app.listen(process.env.PORT, () => {
   console.log('Example app listening on port 3000!');
 });
