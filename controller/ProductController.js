@@ -70,12 +70,20 @@ exports.postCreateProduct = (req, res) => {
         product_shopify_id = req.body.productid,
         discount_code = req.body.discountcode;
 
-  ProductRepository.createProduct(name, product_shopify_id, discount_code).then(product => {
-    product = product[0];
-    if(product) {
-      res.render('success', { title: 'Product Uploaded' });
+  // checking to see if shopify ID is already used by another product
+    // because it must be unique per each product registered
+  ProductRepository.checkShopifyIdUnique(product_shopify_id).then(result => {
+    if (result.length > 0) {
+      res.render('product-error');
+    } else {
+      ProductRepository.createProduct(name, product_shopify_id, discount_code).then(product => {
+        product = product[0];
+        if(product) {
+          res.render('success', { title: 'Product Uploaded' });
+        }
+      });
     }
-  });
+  })
 };
 
 /**

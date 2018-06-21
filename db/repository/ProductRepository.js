@@ -41,6 +41,13 @@ module.exports = {
     .where({ product_shopify_id })
   },
 
+  checkShopifyIdUnique: (product_shopify_id) => {
+  	return Product
+    .query()
+    .select()
+    .where({ product_shopify_id })
+  },
+
   createProduct: (name, product_shopify_id, discount_code) => {
   	return Product
     .query()
