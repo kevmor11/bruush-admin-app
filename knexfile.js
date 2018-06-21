@@ -1,5 +1,10 @@
 require('dotenv').config();
 
+console.log("HOST", process.env.DATABASE_HOST);
+console.log("USER", process.env.DATABASE_USER);
+console.log("PASSWORD", process.env.DATABASE_PASSWORD);
+console.log("DATABASE", process.env.DATABASE_NAME);
+
 module.exports = {
   client: 'mysql',
   connection: {
