@@ -7,7 +7,8 @@ exports.up = (knex, Promise) => {
     t.integer('csv_log_id');
     t.boolean('email_to_be_sent').defaultTo(false);
     t.boolean('email_has_been_sent').defaultTo(false);
-    t.string('discount_code').notNullable();
+    t.string('discount_code').defaultTo(null);
+    t.string('customer_unique_discount_code').defaultTo(null);
     t.date('email_sent_date').defaultTo(null);
     t.date('signup_date').defaultTo(null);
     t.timestamps(false, true);

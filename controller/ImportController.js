@@ -1,7 +1,10 @@
 const ProductRepository = require('../db/repository/ProductRepository'),
       LogsRepository = require('../db/repository/LogsRepository'),
       WinnerRepository = require('../db/repository/WinnerRepository'),
-      csvParser = require('csv-parse');
+      csvParser = require('csv-parse'),
+      request = require('request'),
+      uuidv1 = require('uuid/v1'),
+      shopifyURL = require('../constants/ShopifyConstants').baseUrl;
 
 // Get Import Upload Page.
 exports.getImport = (req, res) => {
@@ -22,11 +25,12 @@ discount_code - Discount Code of Product belonging to CSV Log being created
 */
 exports.postImport = (req, res) => {
   const csvFile = req.file.buffer,
-        product_shopify_id = Number(req.body.product);
+        product_shopify_id = Number(req.body.product),
+        discountRule = req.body.discount;
   let discount_code = '';
 
   try {
-    csvParser(csvFile, { delimiter: ',' }, (err, data) => {
+    csvParser(csvFile, { delimiter: ',' }, (err, CSVdata) => {
       if (err) {
         console.log("CSV Error: ", err);
       } else {
@@ -34,18 +38,40 @@ exports.postImport = (req, res) => {
           product = product[0];
           discount_code = product.discount_code;
 
-          LogsRepository.importLog(data.length, product_shopify_id, discount_code).then(result => {
+          LogsRepository.importLog(CSVdata.length, product_shopify_id, discount_code).then(result => {
             result = result[0];
 
             if(result) {
               const csv_log_id = result.id;
 
-              data.forEach((row, index) => {
-                WinnerRepository.createWinner(row[0],row[1], row[2], product_shopify_id, csv_log_id, discount_code).then(result2 => {
-                  if(result2 && index === (data.length - 1)) {
-                    res.render('success', { title: 'CSV Import Uploaded' });
-                  }
-                })
+              CSVdata.forEach((row, index) => {
+                if(discountRule === 'unique') {
+                  // TODO implement uuid to get unqiue code
+                  var code = uuidv1();
+                  var formData = {
+                    discount_code: {
+                      code
+                    }
+                  };
+                  request.post({
+                    url: `${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`,
+                    form: formData
+                  }, () => {
+                    discount_code = null;
+                    WinnerRepository.createWinner(row[0],row[1], row[2], product_shopify_id, csv_log_id, discount_code, code).then(result2 => {
+                      if(result2 && index === (CSVdata.length - 1)) {
+                        res.render('success', { title: 'CSV Import Uploaded' });
+                      }
+                    })
+                  });
+                } else {
+                  code = null;
+                  WinnerRepository.createWinner(row[0],row[1], row[2], product_shopify_id, csv_log_id, discount_code, code).then(result2 => {
+                    if(result2 && index === (CSVdata.length - 1)) {
+                      res.render('success', { title: 'CSV Import Uploaded' });
+                    }
+                  })
+                }
               });
             } else {
               console.log("Error uploading CSV data to Customer table");

@@ -20,7 +20,8 @@ module.exports = {
       'customer.num_referrals',
       'product.name',
       'customer.discount_code',
-      'customer.email_sent_date'
+      'customer.email_sent_date',
+      'customer.customer_unique_discount_code'
     )
     .offset(10 * page)
 	  .page(page, configs.pageSize);
@@ -40,7 +41,8 @@ module.exports = {
       'customer.num_referrals',
       'product.name',
       'customer.discount_code',
-      'customer.email_sent_date'
+      'customer.email_sent_date',
+      'customer.customer_unique_discount_code'
     )
     .where({ csv_log_id: id})
     .offset(10 * page)
@@ -61,7 +63,8 @@ module.exports = {
       'customer.num_referrals',
       'product.name',
       'customer.discount_code',
-      'customer.email_sent_date'
+      'customer.email_sent_date',
+      'customer.customer_unique_discount_code'
     )
     .where({ csv_log_id: id})
   },
@@ -69,11 +72,11 @@ module.exports = {
   listWinnersToBeMailed: () => {
     return Winner
     .query()
-    .select('id','email','discount_code')
+    .select('id','email','discount_code','customer_unique_discount_code')
     .where({ email_to_be_sent: 1 })
   },
 
-  createWinner: (email, signup_date, num_referrals, product_id, csv_log_id, discount_code) => {
+  createWinner: (email, signup_date, num_referrals, product_id, csv_log_id, discount_code, customer_unique_discount_code) => {
     return Winner
     .query()
     .insert([{
@@ -82,7 +85,8 @@ module.exports = {
       num_referrals,
       product_id,
       csv_log_id,
-      discount_code
+      discount_code,
+      customer_unique_discount_code
     }])
   },
 

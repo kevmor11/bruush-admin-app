@@ -15,11 +15,21 @@
             </label>
             <input id="reader" type="text" class="form-control field" readonly="">
           </div>
+          <h6 class="mt-4">Product:</h6>
           <select class="product mt-4 form-control" name="product">
             <% products.forEach((product) => { %>
               <option value="<%= product.product_shopify_id %>"><%= product.name %></option>
             <% }) %>
           </select>
+          <h6 class="mt-4">Discount Code Options:</h6>
+          <div>
+            <input type="radio" id="single" name="discount" value="single" required>
+            <label class="ml-2" for="single">Single Code for Entire Group</label>
+          </div>
+          <div>
+            <input type="radio" id="unique" name="discount" value="unique" required>
+            <label class="ml-2" for="unique">Unique Code for Each Customer</label>
+          </div>
           <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
         </form>
       </div>

@@ -16,6 +16,7 @@
                   <th># of Referrals</th>
                   <th>Product Name</th>
                   <th>Discount Code</th>
+                  <th>Customer Unique Discount Code</th>
                   <th>Last Sent Time</th>
                 </tr>
               </thead>
@@ -27,6 +28,7 @@
                     <td><%= winner.num_referrals %></td>
                     <td><%= winner.name %></td>
                     <td><%= winner.discount_code %></td>
+                    <td><%= winner.customer_unique_discount_code %></td>
                     <% if(winner.email_sent_date === null) { %>
                       <td>Not Sent Yet</td>
                     <% } else { %>
