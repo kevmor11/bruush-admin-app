@@ -51,6 +51,10 @@ section.product-table {
   section.product-table table#products {
     margin: 0 auto; }
 
+div.login-container {
+  width: 350px;
+  margin: 0 auto; }
+
 div.modal-prompt {
   overflow: visible;
   min-height: 200px;
