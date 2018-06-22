@@ -93,5 +93,5 @@ app.use((req, res) => {
 
 // We can switch back to this implementation prior to production
 app.listen(process.env.PORT, () => {
-  console.log('Example app listening on port 3000!');
+  console.log(`Example app listening on port ${process.env.PORT}!`);
 });
