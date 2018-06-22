@@ -6,8 +6,7 @@ const sendMail = require('../util/MailUtil'),
 exports.sendMailWinners = (req, res) => {
   const csv_log_id = Number(req.body.logid);
 
-  WinnerRepository.listWinnersByLog(csv_log_id).then(customers => {
-    customers = customers.results;
+  WinnerRepository.listWinnersByLogNoPagination(csv_log_id).then(customers => {
 
     WinnerRepository.setWinnersToBeSent(csv_log_id).then(result => {
       customers.forEach((customer, i) => {

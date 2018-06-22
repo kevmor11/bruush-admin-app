@@ -47,6 +47,25 @@ module.exports = {
 	  .page(page, configs.pageSize);
   },
 
+  listWinnersByLogNoPagination: (id) => {
+    return Winner
+    .query()
+    .join(
+      'product',
+      'customer.product_id',
+      'product.product_shopify_id'
+    )
+    .select(
+      'customer.id',
+      'customer.email',
+      'customer.num_referrals',
+      'product.name',
+      'customer.discount_code',
+      'customer.email_sent_date'
+    )
+    .where({ csv_log_id: id})
+  },
+
   listWinnersToBeMailed: () => {
     return Winner
     .query()

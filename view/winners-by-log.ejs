@@ -38,10 +38,11 @@
             </table>
             <div class="text-center mt-3">
               <% if (page > 0) { %>
-                <a href="/winners?page=<%= page - 1 %>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></a>
+                <a href="/winners_by_log/<%= id %>?page=<%= page - 1 %>" class="btn btn-secondary"><i class="fas fa-arrow-left"></i></a>
               <% } %>
+              <h6 class="m-3 d-inline">Page <%= page + 1 %></h6>
               <% if (winnerCount === 10) { %>
-                <a href="/winners?page=<%= page + 1 %>" class="btn btn-primary"><i class="fas fa-arrow-right"></i></a>
+                <a href="/winners_by_log/<%= id %>?page=<%= page + 1 %>" class="btn btn-primary"><i class="fas fa-arrow-right"></i></a>
               <% } %>
             </div>
           </div>
