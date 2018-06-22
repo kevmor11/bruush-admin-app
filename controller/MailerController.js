@@ -2,7 +2,7 @@ const sendMail = require('../util/MailUtil'),
       WinnerRepository = require('../db/repository/WinnerRepository'),
       LogsRepository = require('../db/repository/LogsRepository');
 
-// Get Logs Page.
+// Send emails to all winners from a given csv_log.
 exports.sendMailWinners = (req, res) => {
   const csv_log_id = Number(req.body.logid);
 

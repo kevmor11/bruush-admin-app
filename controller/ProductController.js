@@ -1,6 +1,4 @@
-const ProductRepository = require('../db/repository/ProductRepository'),
-      shopifyUrl = require('../constants/ShopifyConstants').baseUrl,
-      request = require('request');
+const ProductRepository = require('../db/repository/ProductRepository');
 
 // Get all products.
 exports.getProducts = (req, res) => {
@@ -14,25 +12,6 @@ exports.getProducts = (req, res) => {
     res.render('products', { products, page, productCount });
   });
 };
-
-/**
-Display detail page for a specific product
-
-Request:
-id - ID of Product Being Shown
-*/
-// exports.detailProduct = (req, res) => {
-//   const id = req.body.id;
-
-//   try {
-//     request(`${shopifyUrl}/products/${id}.json`, (err, response, body) => {
-//       const product = JSON.parse(body).product;
-//       res.render('product-by-id', { product });
-//     });
-//   } catch (error) {
-//     return res.end(error.message);
-//   }
-// };
 
 /**
 Get Create Product page
