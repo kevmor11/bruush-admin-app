@@ -3,7 +3,8 @@ const cron = require('node-cron'),
       sendMail = require('./MailUtil');
 
 module.exports = () => {
-  cron.schedule('0 8 * * *', () => {
+  // cron.schedule('0 8 * * *', () => {
+  cron.schedule('20 10 * * *', () => {
     WinnerRepository.listWinnersToBeMailed().then(customers => {
       customers.forEach((customer) => {
         // TODO customize emails
