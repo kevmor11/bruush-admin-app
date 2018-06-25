@@ -36,20 +36,6 @@ module.exports = {
     .where({ id })
   },
 
-  listProductByShopifyId: (product_shopify_id) => {
-  	return Product
-    .query()
-    .select(
-      'product_shopify_id',
-      'name',
-      'product_url',
-      'discount_rule_id',
-      'discount_rule',
-      'discount_code'
-    )
-    .where({ product_shopify_id })
-  },
-
   createProduct: (name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code) => {
   	return Product
     .query()
