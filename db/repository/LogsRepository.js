@@ -13,7 +13,7 @@ module.exports = {
     .join(
       'product',
       'csv_log.product_id',
-      'product.product_shopify_id'
+      'product.id'
     )
     .select(
       'csv_log.id',

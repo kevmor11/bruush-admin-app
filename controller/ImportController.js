@@ -19,26 +19,28 @@ Post info to import a CSV Log
 
 Request:
 csvFile - CSV File contents
-product_shopify_id - Shopify ID of Product belonging to CSV Log being created
+product_id - ID of Product belonging to CSV Log being created
 discount_code - Discount Code of Product belonging to CSV Log being created
 
 */
 exports.postImport = (req, res) => {
   const csvFile = req.file.buffer,
-        product_shopify_id = Number(req.body.product),
+        product_id = Number(req.body.product),
         discountRule = req.body.discount;
-  let discount_code = '';
+  let discount_code = '',
+      discount_rule_id = '';
 
   try {
     csvParser(csvFile, { delimiter: ',' }, (err, CSVdata) => {
       if (err) {
         console.log("CSV Error: ", err);
       } else {
-        ProductRepository.listProductByShopifyId(product_shopify_id).then(product => {
+        ProductRepository.listProductById(product_id).then(product => {
           product = product[0];
           discount_code = product.discount_code;
+          discount_rule_id = product.discount_rule_id;
 
-          LogsRepository.importLog(CSVdata.length, product_shopify_id, discount_code).then(result => {
+          LogsRepository.importLog(CSVdata.length, product_id, discount_code).then(result => {
             result = result[0];
 
             if(result) {
@@ -54,11 +56,11 @@ exports.postImport = (req, res) => {
                     }
                   };
                   request.post({
-                    url: `${shopifyURL}/price_rules/${process.env.SHOPIFY_DISCOUNT_ID}/discount_codes.json`,
+                    url: `${shopifyURL}/price_rules/${discount_rule_id}/discount_codes.json`,
                     form: formData
                   }, () => {
                     discount_code = null;
-                    WinnerRepository.createWinner(row[0],row[1], row[2], product_shopify_id, csv_log_id, discount_code, code).then(result2 => {
+                    WinnerRepository.createWinner(row[0],row[1], row[2], product_id, csv_log_id, discount_code, code).then(result2 => {
                       if(result2 && index === (CSVdata.length - 1)) {
                         res.render('success', { title: 'CSV Import Uploaded' });
                       }
@@ -66,7 +68,7 @@ exports.postImport = (req, res) => {
                   });
                 } else {
                   code = null;
-                  WinnerRepository.createWinner(row[0],row[1], row[2], product_shopify_id, csv_log_id, discount_code, code).then(result2 => {
+                  WinnerRepository.createWinner(row[0],row[1], row[2], product_id, csv_log_id, discount_code, code).then(result2 => {
                     if(result2 && index === (CSVdata.length - 1)) {
                       res.render('success', { title: 'CSV Import Uploaded' });
                     }

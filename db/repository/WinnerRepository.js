@@ -12,7 +12,7 @@ module.exports = {
     .join(
       'product',
       'customer.product_id',
-      'product.product_shopify_id'
+      'product.id'
     )
     .select(
       'customer.id',
@@ -33,7 +33,7 @@ module.exports = {
     .join(
       'product',
       'customer.product_id',
-      'product.product_shopify_id'
+      'product.id'
     )
     .select(
       'customer.id',
@@ -55,7 +55,7 @@ module.exports = {
     .join(
       'product',
       'customer.product_id',
-      'product.product_shopify_id'
+      'product.id'
     )
     .select(
       'customer.id',

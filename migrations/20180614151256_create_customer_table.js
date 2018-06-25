@@ -3,7 +3,7 @@ exports.up = (knex, Promise) => {
     t.increments('id').primary();
     t.string('email').notNullable();
     t.integer('num_referrals').notNullable();
-    t.integer('product_id').notNullable();
+    t.bigInteger('product_id').notNullable();
     t.integer('csv_log_id');
     t.boolean('email_to_be_sent').defaultTo(false);
     t.boolean('email_has_been_sent').defaultTo(false);

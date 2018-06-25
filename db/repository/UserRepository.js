@@ -11,15 +11,5 @@ module.exports = {
     .query()
     .select('username', 'password')
 	  .where('username', '=', username)
-  },
-
-  listUsers: (page) => {
-
-  	console.log(configs.pageSize);
-
-  	return User
-	  .query()
-	  .page(page - 1, configs.pageSize);
-  },
-
+  }
 }
