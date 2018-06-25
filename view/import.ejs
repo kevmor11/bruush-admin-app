@@ -16,10 +16,10 @@
             </label>
             <input id="reader" type="text" class="form-control field" readonly="">
           </div>
-          <h5 class="mt-4">Product:</h5>
+          <h5 class="mt-4">Product (& Discount Rule):</h5>
           <select class="product ml-3 mt-3 form-control" name="product">
             <% products.forEach((product) => { %>
-              <option value="<%= product.id %>"><%= product.name %></option>
+              <option value="<%= product.id %>"><%= product.name %> - <%= product.discount_rule %></option>
             <% }) %>
           </select>
           <h5 class="mt-4">Discount Code Options:</h5>
