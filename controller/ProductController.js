@@ -47,22 +47,17 @@ discount_code - Discount Code of Product being created
 exports.postCreateProduct = (req, res) => {
   const name = req.body.name,
         product_shopify_id = req.body.productid,
-        discount_code = req.body.discountcode;
+        discount_code = req.body.discountcode,
+        product_url = req.body.producturl,
+        discount_rule_id = req.body.discountruleid,
+        discount_rule = req.body.discountrule;
 
-  // checking to see if shopify ID is already used by another product
-    // because it must be unique per each product registered
-  ProductRepository.checkShopifyIdUnique(product_shopify_id).then(result => {
-    if (result.length > 0) {
-      res.render('product-error');
-    } else {
-      ProductRepository.createProduct(name, product_shopify_id, discount_code).then(product => {
-        product = product[0];
-        if(product) {
-          res.render('success', { title: 'Product Uploaded' });
-        }
-      });
+  ProductRepository.createProduct(name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code).then(product => {
+    product = product[0];
+    if(product) {
+      res.render('success', { title: 'Product Uploaded' });
     }
-  })
+  });
 };
 
 /**
@@ -79,9 +74,12 @@ exports.postUpdateProduct = (req, res) => {
   const name = req.body.name,
         product_shopify_id = req.body.productid,
         discount_code = req.body.discountcode,
-        id = req.body.id;
+        id = req.body.id,
+        product_url = req.body.producturl,
+        discount_rule_id = req.body.discountruleid,
+        discount_rule = req.body.discountrule;
 
-  ProductRepository.updateProduct(id, name, product_shopify_id, discount_code).then(product => {
+  ProductRepository.updateProduct(id, name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code).then(product => {
     if(product) {
       res.render('success', { title: `Product ${name} Updated` });
     }

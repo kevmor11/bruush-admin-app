@@ -13,6 +13,9 @@ module.exports = {
       'id',
       'product_shopify_id',
       'name',
+      'product_url',
+      'discount_rule_id',
+      'discount_rule',
       'discount_code'
     )
     .offset(10 * page)
@@ -25,46 +28,37 @@ module.exports = {
     .select(
       'product_shopify_id',
       'name',
+      'product_url',
+      'discount_rule_id',
+      'discount_rule',
       'discount_code'
     )
     .where({ id })
   },
 
-  listProductByShopifyId: (product_shopify_id) => {
-  	return Product
-    .query()
-    .select(
-      'product_shopify_id',
-      'name',
-      'discount_code'
-    )
-    .where({ product_shopify_id })
-  },
-
-  checkShopifyIdUnique: (product_shopify_id) => {
-  	return Product
-    .query()
-    .select()
-    .where({ product_shopify_id })
-  },
-
-  createProduct: (name, product_shopify_id, discount_code) => {
+  createProduct: (name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code) => {
   	return Product
     .query()
     .insert([{
       name,
       product_shopify_id,
+      product_url,
+      discount_rule_id,
+      discount_rule,
       discount_code
     }])
   },
 
-  updateProduct: (id, name, product_shopify_id, discount_code) => {
+  updateProduct: (id, name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code) => {
   	return Product
     .query()
     .where({ id })
     .update({
       name,
       product_shopify_id,
+      product_url,
+      discount_rule_id,
+      discount_rule,
       discount_code
     })
   },
