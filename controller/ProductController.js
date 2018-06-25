@@ -54,7 +54,7 @@ exports.postCreateProduct = (req, res) => {
 
   ProductRepository.createProduct(name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code).then(product => {
     product = product[0];
-    if(product) {
+    if(product !== null) {
       res.render('success', { title: 'Product Uploaded' });
     }
   });
