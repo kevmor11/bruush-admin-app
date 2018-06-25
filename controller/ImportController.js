@@ -3,7 +3,7 @@ const ProductRepository = require('../db/repository/ProductRepository'),
       WinnerRepository = require('../db/repository/WinnerRepository'),
       csvParser = require('csv-parse'),
       request = require('request'),
-      uuidv1 = require('uuid/v1'),
+      uuidv1 = require('uuid/v4'),
       shopifyURL = require('../constants/ShopifyConstants').baseUrl;
 
 // Get Import Upload Page.
@@ -59,8 +59,11 @@ exports.postImport = (req, res) => {
                     url: `${shopifyURL}/price_rules/${discount_rule_id}/discount_codes.json`,
                     form: formData
                   }, () => {
+                    const indexEmail = 0,
+                          indexJoinedDate = 1,
+                          indexReferralCount = 2;
                     discount_code = null;
-                    WinnerRepository.createWinner(row[0],row[1], row[2], product_id, csv_log_id, discount_code, code).then(result2 => {
+                    WinnerRepository.createWinner(row[indexEmail],row[indexJoinedDate], row[indexReferralCount], product_id, csv_log_id, discount_code, code).then(result2 => {
                       if(result2 && index === (CSVdata.length - 1)) {
                         res.render('success', { title: 'CSV Import Uploaded' });
                       }

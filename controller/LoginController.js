@@ -36,7 +36,7 @@ exports.postLogin = (req, res) => {
       const authenticatedUser = authenticated(username, password);
 
       if (authenticatedUser) {
-        req.session["user_id"] = 1;
+        req.session["user_id"] = queryUsername;
         res.redirect("/dashboard");
       } else {
         res.status(403).send("<div style='margin: 16em; text-align: center;'><h1>Login Credentials were incorrect, please try again.</h1><br><a href='/login'><h1>Back to Login Page</h1></a></div>");
