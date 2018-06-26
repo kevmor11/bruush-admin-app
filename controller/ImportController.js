@@ -3,7 +3,7 @@ const ProductRepository = require('../db/repository/ProductRepository'),
       WinnerRepository = require('../db/repository/WinnerRepository'),
       csvParser = require('csv-parse'),
       request = require('request'),
-      uuidv1 = require('uuid/v4'),
+      uuidv4 = require('uuid/v4'),
       shopifyURL = require('../constants/ShopifyConstants').baseUrl;
 
 // Get Import Upload Page.
@@ -50,7 +50,7 @@ exports.postImport = (req, res) => {
               CSVdata.forEach((row, index) => {
                 if(discount_code_usage === 'unique') {
                   // TODO implement uuid to get unqiue code
-                  var code = uuidv1();
+                  var code = uuidv4();
                   var formData = {
                     discount_code: {
                       code
