@@ -3,14 +3,6 @@
   <% include ../partials/_head %>
   <body>
     <% include ../partials/_header %>
-    <script>
-      let usage = '';
-      <% if(product.discount_code_usage === 'unique') { %>
-        usage = 'Once Time Only';
-      <% } else { %>
-        usage = 'Once Per Customer';
-      <% } %>
-    </script>
     <section class="product mt-5">
       <div style="margin: 0 auto; width: 400px;">
         <h1 class="text-center"><i class="fas fa-upload"></i> Import CSV</h1>
@@ -27,7 +19,7 @@
           <h5 class="mt-4">Product (& Discount Rule):</h5>
           <select class="product ml-3 mt-3 form-control" name="product">
             <% products.forEach((product) => { %>
-              <option value="<%= product.id %>"><%= product.name %> - <%= product.discount_rule %> - <% usage %></option>
+              <option value="<%= product.id %>"><%= product.name %> - <%= product.discount_rule %> - <%= product.discount_code_usage %> code</option>
             <% }) %>
           </select>
           <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
