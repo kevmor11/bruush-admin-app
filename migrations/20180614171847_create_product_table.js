@@ -7,6 +7,7 @@ exports.up = (knex, Promise) => {
     t.bigInteger('discount_rule_id').notNullable();
     t.string('discount_rule').notNullable();
     t.string('discount_code').notNullable();
+    t.string('discount_code_usage').notNullable();
     t.timestamps(false, true);
   })
 };

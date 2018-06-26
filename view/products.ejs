@@ -19,6 +19,7 @@
                   <th>Shopify Discount Rule ID</th>
                   <th>Shopify Discount Rule Description</th>
                   <th>Discount Code</th>
+                  <th>Discount Code Usage</th>
                   <th>Edit</th>
                 </tr>
               </thead>
@@ -32,6 +33,11 @@
                     <td><%= product.discount_rule_id %></td>
                     <td><%= product.discount_rule %></td>
                     <td><%= product.discount_code %></td>
+                    <% if(product.discount_code_usage === 'unique') { %>
+                      <td>One Time Only</td>
+                    <% } else { %>
+                      <td>Once Per Customer</td>
+                    <% } %>
                     <td><a href="/products/edit?id=<%= product.id %>" class="btn btn-outline-primary"><i class="far fa-edit"></i> Edit</a></td>
                   </tr>
                 <% }) %>

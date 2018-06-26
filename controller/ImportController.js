@@ -25,10 +25,10 @@ discount_code - Discount Code of Product belonging to CSV Log being created
 */
 exports.postImport = (req, res) => {
   const csvFile = req.file.buffer,
-        product_id = Number(req.body.product),
-        discountRule = req.body.discount;
+        product_id = Number(req.body.product);
   let discount_code = '',
-      discount_rule_id = '';
+      discount_rule_id = '',
+      discount_code_usage = '';
 
   try {
     csvParser(csvFile, { delimiter: ',' }, (err, CSVdata) => {
@@ -39,6 +39,7 @@ exports.postImport = (req, res) => {
           product = product[0];
           discount_code = product.discount_code;
           discount_rule_id = product.discount_rule_id;
+          discount_code_usage = product.discount_code_usage;
 
           LogsRepository.importLog(CSVdata.length, product_id, discount_code).then(result => {
             result = result[0];
@@ -47,7 +48,7 @@ exports.postImport = (req, res) => {
               const csv_log_id = result.id;
 
               CSVdata.forEach((row, index) => {
-                if(discountRule === 'unique') {
+                if(discount_code_usage === 'unique') {
                   // TODO implement uuid to get unqiue code
                   var code = uuidv1();
                   var formData = {

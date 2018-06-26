@@ -35,6 +35,22 @@
               <label class="edit-product" for="discount-code">Discount Code:</label>
               <input type="text" class="text-input" name="discountcode" value="<%= product.discount_code %>" required data-parsley-type="alphanum">
             </div>
+
+            <h6 class="text-left">Discount Rule Code Usage</h6>
+            <div class="input-group mb-3">
+              <% if(product.discount_code_usage === 'shared') { %>
+                <input class="ml-3" type="radio" id="single" name="usage" value="shared" required checked>
+                <label class="ml-2" for="single">Single Code for Entire Group</label>
+                <input class="ml-3" type="radio" id="unique" name="usage" value="unique" required>
+                <label class="ml-2" for="unique">Unique Code for Each Customer</label>
+              <% } else { %>
+                <input class="ml-3" type="radio" id="single" name="usage" value="shared" required>
+                <label class="ml-2" for="single">Single Code for Entire Group</label>
+                <input class="ml-3" type="radio" id="unique" name="usage" value="unique" required checked>
+                <label class="ml-2" for="unique">Unique Code for Each Customer</label>
+              <% } %>
+            </div>
+
             <button type="submit" class="submit-prod mt-4 btn btn-primary">Update</button>
           </form>
         <% } else { %>
@@ -60,11 +76,19 @@
               <label class="edit-product" for="discountrule">Shopify Discount Rule Description:</label>
               <input type="text" class="text-input" name="discountrule" required>
             </div>
-
             <div class="input-group mb-3">
               <label class="edit-product" for="discount-code">Discount Code:</label>
               <input type="text" class="text-input" name="discountcode" required data-parsley-type="alphanum">
             </div>
+
+            <h6 class="text-left">Discount Rule Code Usage</h6>
+            <div class="input-group mb-3">
+              <input class="ml-3" type="radio" id="single" name="usage" value="shared" required>
+              <label class="ml-2" for="single">Single Code for Entire Group</label>
+              <input class="ml-3" type="radio" id="unique" name="usage" value="unique" required>
+              <label class="ml-2" for="unique">Unique Code for Each Customer</label>
+            </div>
+
             <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
           </form>
         <% } %>

@@ -50,9 +50,10 @@ exports.postCreateProduct = (req, res) => {
         discount_code = req.body.discountcode,
         product_url = req.body.producturl,
         discount_rule_id = req.body.discountruleid,
-        discount_rule = req.body.discountrule;
+        discount_rule = req.body.discountrule,
+        discount_code_usage = req.body.usage;
 
-  ProductRepository.createProduct(name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code).then(product => {
+  ProductRepository.createProduct(name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code, discount_code_usage).then(product => {
     product = product[0];
     if(product !== null) {
       res.render('success', { title: 'Product Uploaded' });
@@ -77,9 +78,10 @@ exports.postUpdateProduct = (req, res) => {
         id = req.body.id,
         product_url = req.body.producturl,
         discount_rule_id = req.body.discountruleid,
-        discount_rule = req.body.discountrule;
+        discount_rule = req.body.discountrule,
+        discount_code_usage = req.body.usage;
 
-  ProductRepository.updateProduct(id, name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code).then(product => {
+  ProductRepository.updateProduct(id, name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code, discount_code_usage).then(product => {
     if(product) {
       res.render('success', { title: `Product ${name} Updated` });
     }
