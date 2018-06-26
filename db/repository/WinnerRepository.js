@@ -62,6 +62,7 @@ module.exports = {
       'customer.email',
       'customer.num_referrals',
       'product.name',
+      'product.product_shopify_id',
       'product.product_url',
       'product.discount_rule',
       'customer.discount_code',
