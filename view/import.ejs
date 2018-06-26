@@ -19,18 +19,9 @@
           <h5 class="mt-4">Product (& Discount Rule):</h5>
           <select class="product ml-3 mt-3 form-control" name="product">
             <% products.forEach((product) => { %>
-              <option value="<%= product.id %>"><%= product.name %> - <%= product.discount_rule %></option>
+              <option value="<%= product.id %>"><%= product.name %> - <%= product.discount_rule %> - <%= product.discount_code_usage %> code</option>
             <% }) %>
           </select>
-          <h5 class="mt-4">Discount Code Options:</h5>
-          <div>
-            <input class="ml-3" type="radio" id="single" name="discount" value="single" required>
-            <label class="ml-2" for="single">Single Code for Entire Group</label>
-          </div>
-          <div>
-            <input class="ml-3" type="radio" id="unique" name="discount" value="unique" required>
-            <label class="ml-2" for="unique">Unique Code for Each Customer</label>
-          </div>
           <button type="submit" class="submit-prod mt-4 btn btn-primary">Upload</button>
         </form>
       </div>

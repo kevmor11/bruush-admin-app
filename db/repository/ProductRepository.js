@@ -16,7 +16,8 @@ module.exports = {
       'product_url',
       'discount_rule_id',
       'discount_rule',
-      'discount_code'
+      'discount_code',
+      'discount_code_usage'
     )
     .offset(10 * page)
 	  .page(page, configs.pageSize);
@@ -31,12 +32,13 @@ module.exports = {
       'product_url',
       'discount_rule_id',
       'discount_rule',
-      'discount_code'
+      'discount_code',
+      'discount_code_usage'
     )
     .where({ id })
   },
 
-  createProduct: (name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code) => {
+  createProduct: (name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code, discount_code_usage) => {
   	return Product
     .query()
     .insert([{
@@ -45,11 +47,12 @@ module.exports = {
       product_url,
       discount_rule_id,
       discount_rule,
-      discount_code
+      discount_code,
+      discount_code_usage
     }])
   },
 
-  updateProduct: (id, name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code) => {
+  updateProduct: (id, name, product_shopify_id, product_url, discount_rule_id, discount_rule, discount_code, discount_code_usage) => {
   	return Product
     .query()
     .where({ id })
@@ -59,7 +62,8 @@ module.exports = {
       product_url,
       discount_rule_id,
       discount_rule,
-      discount_code
+      discount_code,
+      discount_code_usage
     })
   },
 }
