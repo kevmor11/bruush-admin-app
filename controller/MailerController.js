@@ -10,8 +10,24 @@ exports.sendMailWinners = (req, res) => {
 
     WinnerRepository.setWinnersToBeSent(csv_log_id).then(result => {
       customers.forEach((customer, i) => {
+        if (customer.discount_code === null) {
+          customer.discount_code = '';
+        }
+        if (customer.customer_unique_discount_code === null) {
+          customer.customer_unique_discount_code = '';
+        }
         // TODO customize emails
-        var sentSuccessfully = sendMail(customer.email,'Hello','<h1>Hello, World</h1>');
+        var sentSuccessfully = sendMail(customer.email,'Hello',`
+          <ol>
+            <li>Product - ${customer.name}</li>
+            <li>Discount Code - ${customer.discount_code} ${customer.customer_unique_discount_code}</li>
+            <li>Product URL - ${customer.product_url}</li>
+            <li>
+              Instructions - You have earned ${customer.discount_rule} a ${customer.name}.
+              To redeem your prize, go to ${customer.product_url} and enter your discount code upon checkout.
+            </li>
+          </ol>
+        `);
         var isSent = new Promise((resolve) => {
           resolve(sentSuccessfully);
         });

@@ -62,6 +62,8 @@ module.exports = {
       'customer.email',
       'customer.num_referrals',
       'product.name',
+      'product.product_url',
+      'product.discount_rule',
       'customer.discount_code',
       'customer.email_sent_date',
       'customer.customer_unique_discount_code'
