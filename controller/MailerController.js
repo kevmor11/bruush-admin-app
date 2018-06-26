@@ -21,10 +21,10 @@ exports.sendMailWinners = (req, res) => {
           <ol>
             <li>Product - ${customer.name}</li>
             <li>Discount Code - ${customer.discount_code} ${customer.customer_unique_discount_code}</li>
-            <li>Product URL - <a href="https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}">https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}</a></li>
+            <li>Product URL - <a href="https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}">https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}</a></li>
             <li>
               Instructions - You have earned ${customer.discount_rule} a ${customer.name}.
-              To redeem your prize, go to <a href="https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}">https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}</a> and enter your discount code upon checkout.
+              To redeem your prize, go to <a href="https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}">https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}</a> and enter your discount code upon checkout.
             </li>
           </ol>
         `);
