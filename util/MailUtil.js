@@ -20,7 +20,12 @@ module.exports = (to, subject, html) => {
     from,
     to,
     subject,
-    html
+    html,
+    attachments: [{
+      filename: 'logo.png',
+      path: __dirname + '/../public/images/logo.png',
+      cid: 'logo@cid'
+    }]
   }, (err, info) => {
     if (err) {
       console.log("Error: ", err);
