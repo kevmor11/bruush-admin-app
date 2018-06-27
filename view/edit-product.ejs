@@ -14,7 +14,7 @@
               <input type="text" class="text-input" name="name" value="<%= product.name %>" required>
             </div>
             <div class="input-group mb-3">
-              <label class="edit-product" for="productid">Shopify Product ID:</label>
+              <label class="edit-product" for="productid">Shopify Product Variant ID:<br>(ask Kevin where to find this)</label>
               <input type="text" class="text-input" name="productid" value="<%= product.product_shopify_id %>" required data-parsley-type="alphanum">
             </div>
 
@@ -47,7 +47,7 @@
                 <input class="ml-3" type="radio" id="single" name="usage" value="shared" required>
                 <label class="ml-2" for="single">Single Code for Entire Group</label>
                 <input class="ml-3" type="radio" id="unique" name="usage" value="unique" required checked>
-                <label class="ml-2" for="unique">Unique Code for Each Customer</label>
+                <label class="ml-2" for="unique">Unique Code for Each Customer(one time use)</label>
               <% } %>
             </div>
 
@@ -60,7 +60,7 @@
               <input type="text" class="text-input" name="name" required>
             </div>
             <div class="input-group mb-3">
-              <label class="edit-product" for="product-id">Shopify Product ID:</label>
+              <label class="edit-product" for="product-id">Shopify Product Variant ID:<br>(ask Kevin where to find this)</label>
               <input type="text" class="text-input" name="productid" required data-parsley-type="alphanum">
             </div>
 
