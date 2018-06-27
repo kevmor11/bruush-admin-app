@@ -16,7 +16,6 @@ exports.sendMailWinners = (req, res) => {
         if (customer.customer_unique_discount_code === null) {
           customer.customer_unique_discount_code = '';
         }
-        // TODO customize emails
         var sentSuccessfully = sendMail(customer.email,'Hello',`
           <div style="text-align: center;">
             <img src="cid:logo@cid" style="width: 250px;">

@@ -49,7 +49,6 @@ exports.postImport = (req, res) => {
 
               CSVdata.forEach((row, index) => {
                 if(discount_code_usage === 'unique') {
-                  // TODO implement uuid to get unqiue code
                   var code = uuidv4();
                   var formData = {
                     discount_code: {
