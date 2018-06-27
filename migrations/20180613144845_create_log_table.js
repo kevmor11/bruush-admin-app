@@ -4,7 +4,7 @@ exports.up = (knex, Promise) => {
     t.integer('num_winners');
     t.bigInteger('product_id').notNullable();
     t.string('discount_code');
-    t.date('email_sent_date').defaultTo(null);
+    t.datetime('email_sent_date').defaultTo(null);
     t.timestamps(false, true);
   })
 };

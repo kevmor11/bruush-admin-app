@@ -9,7 +9,7 @@ exports.up = (knex, Promise) => {
     t.boolean('email_has_been_sent').defaultTo(false);
     t.string('discount_code').defaultTo(null);
     t.string('customer_unique_discount_code').defaultTo(null);
-    t.date('email_sent_date').defaultTo(null);
+    t.datetime('email_sent_date').defaultTo(null);
     t.date('signup_date').defaultTo(null);
     t.timestamps(false, true);
   })
