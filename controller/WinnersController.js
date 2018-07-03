@@ -35,10 +35,7 @@ exports.unsubscribeCustomer = (req, res) => {
   const dashboard_code = req.params.dashboard_code;
 
   WinnerRepository.unsubscribeWinner(dashboard_code).then(result => {
-    request(`http://localhost_aryies/app_dev.php/unsubscribe/${dashboard_code}`, (error, response, body) => {
-      console.log('statusCode:', response && response.statusCode);
-      console.log('body:', body);
-    })
+    res.redirect(`http://localhost_aryies/app_dev.php/unsubscribe/${dashboard_code}`);
     // https://www.bruush.com/app_dev.php/unsubscribe/33c9811c41b35dd5
   });
 };
