@@ -44,12 +44,12 @@ module.exports = {
       'customer.email_sent_date',
       'customer.customer_unique_discount_code'
     )
-    .where({ csv_log_id: id})
+    .where({ csv_log_id: id })
     .offset(10 * page)
 	  .page(page, configs.pageSize);
   },
 
-  listWinnersByLogNoPagination: (id) => {
+  listSubscribedWinnersByLog: (id) => {
     return Winner
     .query()
     .join(
@@ -60,6 +60,7 @@ module.exports = {
     .select(
       'customer.id',
       'customer.email',
+      'customer.dashboard_code',
       'customer.num_referrals',
       'product.name',
       'product.product_shopify_id',
@@ -69,21 +70,28 @@ module.exports = {
       'customer.email_sent_date',
       'customer.customer_unique_discount_code'
     )
-    .where({ csv_log_id: id})
+    .where({
+      csv_log_id: id,
+      unsubscribed: 0
+    })
   },
 
   listWinnersToBeMailed: () => {
     return Winner
     .query()
     .select('id','email','discount_code','customer_unique_discount_code')
-    .where({ email_to_be_sent: 1 })
+    .where({
+      email_to_be_sent: 1,
+      unsubscribed: 0
+    })
   },
 
-  createWinner: (email, signup_date, num_referrals, product_id, csv_log_id, discount_code, customer_unique_discount_code) => {
+  createWinner: (email, dashboard_code, signup_date, num_referrals, product_id, csv_log_id, discount_code, customer_unique_discount_code) => {
     return Winner
     .query()
     .insert([{
       email,
+      dashboard_code,
       signup_date,
       num_referrals,
       product_id,
@@ -96,18 +104,31 @@ module.exports = {
   setWinnersToBeSent: (csv_log_id) => {
     return Winner
     .query()
-    .where({ id: csv_log_id })
+    .where({
+      id: csv_log_id,
+      unsubscribed: 0
+    })
     .update({ email_to_be_sent: 1 })
   },
 
   setWinnersAsSent: (id) => {
     return Winner
     .query()
-    .where({ id })
+    .where({
+      id,
+      unsubscribed: 0
+    })
     .update({
       email_has_been_sent: 1,
       email_to_be_sent: 0,
       email_sent_date: new Date()
     })
+  },
+
+  unsubscribeWinner: (dashboard_code) => {
+    return Winner
+    .query()
+    .where({ dashboard_code })
+    .update({ unsubscribed: 1 })
   },
 }

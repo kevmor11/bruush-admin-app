@@ -6,39 +6,60 @@ const sendMail = require('../util/MailUtil'),
 exports.sendMailWinners = (req, res) => {
   const csv_log_id = Number(req.body.logid);
 
-  WinnerRepository.listWinnersByLogNoPagination(csv_log_id).then(customers => {
+  WinnerRepository.listSubscribedWinnersByLog(csv_log_id).then(customers => {
 
-    WinnerRepository.setWinnersToBeSent(csv_log_id).then(result => {
-      customers.forEach((customer, i) => {
-        if (customer.discount_code === null) {
-          customer.discount_code = '';
-        }
-        if (customer.customer_unique_discount_code === null) {
-          customer.customer_unique_discount_code = '';
-        }
-        var sentSuccessfully = sendMail(customer.email,'Hello',`
-          <div style="text-align: center;">
-            <img src="cid:logo@cid" style="width: 250px;">
-            <h2>You have earned ${customer.discount_rule} a ${customer.name}.</h2>
-            <h4>To redeem your prize, go to <a href="https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}">https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}</a>.</h4>
-          </div>
-        `);
-        var isSent = new Promise((resolve) => {
-          resolve(sentSuccessfully);
-        });
+    if(customers.length > 0) {
+      WinnerRepository.setWinnersToBeSent(csv_log_id).then(result => {
 
-        isSent.then(() => {
-          WinnerRepository.setWinnersAsSent(customer.id).then(result => {
+        customers.forEach((customer, i) => {
+          if (customer.discount_code === null) {
+            customer.discount_code = '';
+          }
+          if (customer.customer_unique_discount_code === null) {
+            customer.customer_unique_discount_code = '';
+          }
 
-            // On the last iteration of the array, render the success page
-            if(i === (customers.length - 1)) {
-              LogsRepository.setLogsAsSent(csv_log_id).then(result => {
-                res.render('success', { title: 'Emails Sent' });
-              })
-            }
+          var sentSuccessfully = sendMail(customer.email,'Hello',`
+            <div style="text-align: center; margin: 0 15%;">
+              <img src="cid:logo@cid" style="width: 100px; margin-bottom: 40px;">
+              <h1 style="font-size: 26px;"><div style="font-size: 32px;">Congratulations!</div><br>You have earned ${customer.discount_rule} a ${customer.name}.</h1>
+              <div style="font-size: 16px; margin-top: 20px;">To redeem your prize, click on the button below.<br><br>
+              <a style="display: inline-block; text-decoration: none; padding: 1rem 1.5rem; font-size: 20px; border-radius: .25rem; background-color: #007bff; color: #fff;" href="https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}">Redeem Prize</a>
+              <br><br>OR<br><br>
+              Copy paste this URL into your browser:<br><br>
+
+              <a style="margin: 0 50px;" href="https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}">https://bruushdev.myshopify.com/cart/${customer.product_shopify_id}:1?discount=${customer.discount_code}${customer.customer_unique_discount_code}.</a></div>
+
+              <div style="font-size: 16px; margin-top: 20px;">Thank you for participating in the contest.</div>
+
+              <footer style="margin-top: 50px; border-top: 1px solid #E7E7E7; background-color: #F9F9F9; padding: 20px 40px;">
+                <a href="http://facebook.com" style="margin: 0 15px;"><img style="display: inline-block; height: 25px; padding-top: 3px;" src="cid:facebook@cid"></a>
+                <a href="http://instagram.com" style="margin: 0 15px;"><img style="display: inline-block; height: 31px;" src="cid:instagram@cid"></a>
+                <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #E7E7E7; margin: 20px 0; padding: 0;"/>
+                <div style="color: grey;">If you would like to unsubscribe from receiving these emails, please click <a href="${process.env.DOMAIN}/unsubscribe/${customer.dasboard_code}">here.</a></div>
+              </footer>
+            </div>
+          `);
+
+          var isSent = new Promise((resolve) => {
+            resolve(sentSuccessfully);
+          });
+
+          isSent.then(() => {
+            WinnerRepository.setWinnersAsSent(customer.id).then(result => {
+
+              // On the last iteration of the array, render the success page
+              if(i === (customers.length - 1)) {
+                LogsRepository.setLogsAsSent(csv_log_id).then(result => {
+                  res.render('success', { title: 'Emails Sent' });
+                })
+              }
+            })
           })
         })
       })
-    })
+    } else {
+      res.render('success', { title: 'Emails Sent' });
+    }
   })
 };

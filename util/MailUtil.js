@@ -21,11 +21,23 @@ module.exports = (to, subject, html) => {
     to,
     subject,
     html,
-    attachments: [{
-      filename: 'logo.png',
-      path: __dirname + '/../public/images/logo.png',
-      cid: 'logo@cid'
-    }]
+    attachments: [
+      {
+        filename: 'logo.png',
+        path: __dirname + '/../public/images/logo.png',
+        cid: 'logo@cid'
+      },
+      {
+        filename: 'facebook.svg',
+        path: __dirname + '/../public/images/facebook.svg',
+        cid: 'facebook@cid'
+      },
+      {
+        filename: 'instagram.svg',
+        path: __dirname + '/../public/images/instagram.svg',
+        cid: 'instagram@cid'
+      }
+    ]
   }, (err, info) => {
     if (err) {
       console.log("Error: ", err);

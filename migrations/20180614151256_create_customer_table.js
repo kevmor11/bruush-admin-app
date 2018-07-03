@@ -2,6 +2,7 @@ exports.up = (knex, Promise) => {
   return knex.schema.createTable('customer', (t) => {
     t.increments('id').primary();
     t.string('email').notNullable();
+    t.string('dashboard_code').notNullable();
     t.integer('num_referrals').notNullable();
     t.bigInteger('product_id').notNullable();
     t.integer('csv_log_id');
@@ -11,6 +12,7 @@ exports.up = (knex, Promise) => {
     t.string('customer_unique_discount_code').defaultTo(null);
     t.datetime('email_sent_date').defaultTo(null);
     t.date('signup_date').defaultTo(null);
+    t.boolean('unsubscribed').defaultTo(false);
     t.timestamps(false, true);
   })
 };

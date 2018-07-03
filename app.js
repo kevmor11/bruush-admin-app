@@ -32,6 +32,7 @@ const login = require('./routes/login'),
       winners = require('./routes/winners'),
       winnersByLog = require('./routes/winners-by-log'),
       products = require('./routes/products'),
+      unsubscribe = require('./routes/unsubscribe'),
       mailer = require('./routes/send-mail');
 
 app.use('/login', login)
@@ -42,6 +43,7 @@ app.use('/login', login)
    .use('/winners', winners)
    .use('/winners_by_log', winnersByLog)
    .use('/products', products)
+   .use('/unsubscribe', unsubscribe)
    .use('/send_mail', mailer);
 
 CronUtil();
