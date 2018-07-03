@@ -19,7 +19,7 @@ exports.sendMailWinners = (req, res) => {
             customer.customer_unique_discount_code = '';
           }
 
-          var sentSuccessfully = sendMail(customer.email,'Hello',`
+          var sentSuccessfully = sendMail(customer.email,'You\'ve won a Prize',`
             <div style="text-align: center; margin: 0 15%;">
               <img src="cid:logo@cid" style="width: 100px; margin-bottom: 40px;">
               <h1 style="font-size: 26px;"><div style="font-size: 32px;">Congratulations!</div><br>You have earned ${customer.discount_rule} a ${customer.name}.</h1>
@@ -35,7 +35,9 @@ exports.sendMailWinners = (req, res) => {
               <footer style="margin-top: 50px; border-top: 1px solid #E7E7E7; background-color: #F9F9F9; padding: 20px 40px;">
                 <a href="http://facebook.com" style="margin: 0 15px;"><img style="display: inline-block; height: 25px; padding-top: 3px;" src="cid:facebook@cid"></a>
                 <a href="http://instagram.com" style="margin: 0 15px;"><img style="display: inline-block; height: 31px;" src="cid:instagram@cid"></a>
+
                 <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #E7E7E7; margin: 20px 0; padding: 0;"/>
+
                 <div style="color: grey;">If you would like to unsubscribe from receiving these emails, please click <a href="${process.env.DOMAIN_PRIZE_APP}/unsubscribe/${customer.dashboard_code}">here.</a></div>
               </footer>
             </div>
