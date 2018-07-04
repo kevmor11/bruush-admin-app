@@ -28,13 +28,13 @@ module.exports = (to, subject, html) => {
         cid: 'logo@cid'
       },
       {
-        filename: 'facebook.svg',
-        path: __dirname + '/../public/images/facebook.svg',
+        filename: 'facebook.png',
+        path: __dirname + '/../public/images/facebook.png',
         cid: 'facebook@cid'
       },
       {
-        filename: 'instagram.svg',
-        path: __dirname + '/../public/images/instagram.svg',
+        filename: 'instagram.png',
+        path: __dirname + '/../public/images/instagram.png',
         cid: 'instagram@cid'
       }
     ]
