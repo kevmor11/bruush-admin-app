@@ -36,6 +36,7 @@ exports.sendMailWinners = (req, res) => {
                 <a href="http://facebook.com" style="margin: 0 15px;"><img style="display: inline-block; height: 25px; width: 13px;" src="cid:facebook@cid"></a>
                 <a href="http://instagram.com" style="margin: 0 15px;"><img style="display: inline-block; height: 26px; width: 26px;" src="cid:instagram@cid"></a>
                 <hr style="display: block; height: 1px; border: 0; border-top: 1px solid #E7E7E7; margin: 20px 0; padding: 0;"/>
+
                 <div style="color: grey;">If you would like to unsubscribe from receiving these emails, please click <a href="${process.env.DOMAIN_PRIZE_APP}/unsubscribe/${customer.dashboard_code}">here.</a></div>
               </footer>
             </div>
